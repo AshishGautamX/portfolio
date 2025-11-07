@@ -1,4 +1,11 @@
 import { Github, Linkedin, Mail } from "lucide-react";
+import { motion } from "framer-motion";
+
+const socialIcons = [
+  { Icon: Mail, href: "mailto:ashishgautam835@gmail.com", label: "Email", testId: "link-footer-email" },
+  { Icon: Linkedin, href: "https://www.linkedin.com/in/ashishgautamx", label: "LinkedIn", testId: "link-footer-linkedin" },
+  { Icon: Github, href: "https://github.com/ashishgautamx", label: "GitHub", testId: "link-footer-github" },
+];
 
 export default function Footer() {
   return (
@@ -10,34 +17,22 @@ export default function Footer() {
           </p>
 
           <div className="flex items-center gap-4">
-            <a
-              href="mailto:ashishgautam835@gmail.com"
-              className="text-muted-foreground hover:text-foreground transition-colors hover-elevate active-elevate-2 p-2 rounded-md"
-              aria-label="Email"
-              data-testid="link-footer-email"
-            >
-              <Mail className="h-5 w-5" />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/ashishgautamx"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-foreground transition-colors hover-elevate active-elevate-2 p-2 rounded-md"
-              aria-label="LinkedIn"
-              data-testid="link-footer-linkedin"
-            >
-              <Linkedin className="h-5 w-5" />
-            </a>
-            <a
-              href="https://github.com/ashishgautamx"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-foreground transition-colors hover-elevate active-elevate-2 p-2 rounded-md"
-              aria-label="GitHub"
-              data-testid="link-footer-github"
-            >
-              <Github className="h-5 w-5" />
-            </a>
+            {socialIcons.map(({ Icon, href, label, testId }, index) => (
+              <motion.a
+                key={index}
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="text-muted-foreground hover:text-foreground transition-colors hover-elevate active-elevate-2 p-2 rounded-md"
+                aria-label={label}
+                data-testid={testId}
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <Icon className="h-5 w-5" />
+              </motion.a>
+            ))}
           </div>
         </div>
       </div>

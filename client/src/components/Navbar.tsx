@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
   { name: "Home", href: "#home" },
@@ -46,14 +47,14 @@ export default function Navbar() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-background/80 backdrop-blur-md border-b border-border" : "bg-transparent"
+        isScrolled ? "bg-background/80 backdrop-blur-md border-b border-border shadow-lg" : "bg-transparent"
       }`}
     >
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           <button
             onClick={() => scrollToSection("#home")}
-            className="text-lg font-semibold text-foreground hover-elevate active-elevate-2 px-2 py-1 rounded-md"
+            className="text-lg font-semibold text-foreground hover-elevate active-elevate-2 px-2 py-1 rounded-md transition-transform hover:scale-105"
             data-testid="link-logo"
           >
             Ashish Gautam
@@ -64,7 +65,7 @@ export default function Navbar() {
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors hover-elevate active-elevate-2 ${
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-all hover-elevate active-elevate-2 relative ${
                   activeSection === item.href.substring(1)
                     ? "text-primary"
                     : "text-muted-foreground"
@@ -72,24 +73,30 @@ export default function Navbar() {
                 data-testid={`link-nav-${item.name.toLowerCase()}`}
               >
                 {item.name}
+                {activeSection === item.href.substring(1) && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-primary rounded-full"></span>
+                )}
               </button>
             ))}
+            <ThemeToggle />
           </div>
 
-          <Button
-            size="icon"
-            variant="ghost"
-            className="md:hidden"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            data-testid="button-mobile-menu"
-          >
-            {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
+          <div className="flex md:hidden items-center gap-2">
+            <ThemeToggle />
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              data-testid="button-mobile-menu"
+            >
+              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
+          </div>
         </div>
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-card border-t border-border">
+        <div className="md:hidden bg-card border-t border-border backdrop-blur-md">
           <div className="px-6 py-4 space-y-2">
             {navItems.map((item) => (
               <button

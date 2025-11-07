@@ -1,6 +1,9 @@
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Code, FileText, BarChart3, BookOpen } from "lucide-react";
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
 
 const skills = [
   {
@@ -30,47 +33,84 @@ const skills = [
 ];
 
 export default function SkillsSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [animatedValues, setAnimatedValues] = useState(skills.map(() => 0));
+
+  useEffect(() => {
+    if (isInView) {
+      skills.forEach((skill, index) => {
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += 2;
+          if (progress >= skill.proficiency) {
+            progress = skill.proficiency;
+            clearInterval(interval);
+          }
+          setAnimatedValues(prev => {
+            const newValues = [...prev];
+            newValues[index] = progress;
+            return newValues;
+          });
+        }, 20);
+      });
+    }
+  }, [isInView]);
+
   return (
-    <section id="skills" className="py-20 md:py-32 bg-card/30">
+    <section id="skills" className="py-20 md:py-32 bg-card/30" ref={ref}>
       <div className="max-w-6xl mx-auto px-6">
-        <h2
+        <motion.h2
           className="text-3xl md:text-4xl font-semibold text-center mb-16"
           data-testid="text-section-skills"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6 }}
         >
           Skills & Expertise
-        </h2>
+        </motion.h2>
 
         <div className="grid md:grid-cols-2 gap-6">
           {skills.map((skill, index) => {
             const Icon = skill.icon;
             return (
-              <Card
+              <motion.div
                 key={index}
-                className="p-6 hover-elevate transition-all duration-300"
-                data-testid={`card-skill-${index}`}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="p-3 rounded-md bg-primary/10">
-                    <Icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <div className="flex-1">
-                    <h3
-                      className="text-xl font-semibold mb-1"
-                      data-testid={`text-skill-name-${index}`}
+                <Card
+                  className="p-6 hover-elevate transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                  data-testid={`card-skill-${index}`}
+                >
+                  <div className="flex items-start gap-4 mb-4">
+                    <motion.div
+                      className="p-3 rounded-md bg-primary/10"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      transition={{ type: "spring", stiffness: 300 }}
                     >
-                      {skill.name}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">{skill.description}</p>
+                      <Icon className="h-6 w-6 text-primary" />
+                    </motion.div>
+                    <div className="flex-1">
+                      <h3
+                        className="text-xl font-semibold mb-1"
+                        data-testid={`text-skill-name-${index}`}
+                      >
+                        {skill.name}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">{skill.description}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Proficiency</span>
-                    <span className="font-medium">{skill.proficiency}%</span>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Proficiency</span>
+                      <span className="font-medium">{animatedValues[index]}%</span>
+                    </div>
+                    <Progress value={animatedValues[index]} className="h-2" />
                   </div>
-                  <Progress value={skill.proficiency} className="h-2" />
-                </div>
-              </Card>
+                </Card>
+              </motion.div>
             );
           })}
         </div>
