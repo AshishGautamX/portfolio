@@ -1,0 +1,97 @@
+Create a clean, modern, and responsive personal portfolio website for me.
+
+I am a Technical Developer who works in a research-support organization. My role involves building tools, web platforms, automation scripts, and reports that help convert data into actionable insights.
+
+My unique strength is combining web development and research report writing — meaning I can not only develop the tools but also create publication-ready documentation and reports in formats like APA, IEEE, and Harvard.
+
+🧩 The portfolio should include the following sections:
+
+1️⃣ Home / Hero Section:
+
+My name: Ashish Gautam
+
+Title: Technical Developer | Research Report Writer | Data Visualization & Automation
+
+Short tagline: I build web tools and data-driven reports that turn research into impact.
+
+A “Hire Me” button that scrolls to the Contact section.
+for reference "
+email: ashishgautam835@gmail.com
+linkedin: https://www.linkedin.com/in/ashishgautamx"
+
+2️⃣ About Section:
+Use this text (formatted nicely):
+
+“I am a Technical Developer that has worked with a research-support organization and has practical experience in creating tools, web platforms, and reports that help transform the data into actionable information.
+
+My main strength is that I can combine web development and research-report writing, which allows me not only to gather and analyze the information but also to present the results in a professional way.”
+
+3️⃣ Skills Section:
+
+Full-stack web development (HTML, CSS, JS, React, Python, Flask, Node.js)
+
+Research report writing (APA / IEEE / Harvard)
+
+Data visualization (Charts, Dashboards, Automation)
+
+Technical documentation and academic-type reporting
+
+Use icons or progress bars for each skill.
+
+4️⃣ Projects Section:
+Show 3–4 example projects (can be demo or placeholder):
+
+“Automated Research Dashboard” – built with Python + Flask
+
+“Publication-Ready APA Report Generator” – built with React
+
+“Data Visualization Platform” – interactive charts with JS
+
+“Technical Documentation Portal” – Markdown to PDF automation
+
+Each project card should have:
+
+A screenshot or placeholder image
+
+Short description
+
+“View Demo” and “View Code” buttons
+
+5️⃣ Testimonials (optional):
+Placeholder quotes like:
+“Delivers high-quality reports and automation tools on time.”
+“Understands both research and development perfectly.”
+
+6️⃣ Contact Section:
+
+Simple contact form (Name, Email, Message)
+
+Links to LinkedIn, GitHub, and Email.
+
+A short message: “Let’s collaborate to turn your ideas into reality.”
+
+7️⃣ Footer:
+
+“© [Your Name] — Technical Developer & Research Writer”
+
+🖌️ Design preferences:
+
+Clean, minimal, and professional (dark theme with blue/gray accents)
+
+Use modern fonts (like Poppins or Inter)
+
+Subtle animations on scroll
+
+Responsive layout for desktop and mobile
+
+🧠 Additional requirements:
+
+Include a simple favicon and meta tags for SEO.
+
+Use smooth scrolling and navigation bar that highlights active section.
+
+Make sure the website loads fast and looks professional.
+
+Keep the code easy to update for adding new projects later.
+
+Finally, make the site deployable directly on netlify, so I can easily share my portfolio link with clients.
