@@ -1,6 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { ArrowDown, Code2, FileText, BarChart3 } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+
+const socialLinks = [
+  { Icon: Github, href: "https://github.com/ashishgautamx", label: "GitHub", testId: "link-hero-github" },
+  { Icon: Linkedin, href: "https://www.linkedin.com/in/ashishgautamx", label: "LinkedIn", testId: "link-hero-linkedin" },
+  { Icon: Mail, href: "mailto:ashishgautam835@gmail.com", label: "Email", testId: "link-hero-email" },
+];
 
 export default function HeroSection() {
   const scrollToContact = () => {
@@ -10,110 +17,112 @@ export default function HeroSection() {
     }
   };
 
-  const floatingIcons = [
-    { Icon: Code2, delay: 0, x: -20, y: -30 },
-    { Icon: FileText, delay: 0.2, x: 30, y: -20 },
-    { Icon: BarChart3, delay: 0.4, x: -30, y: 20 },
-  ];
-
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      className="min-h-screen flex items-center relative overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-accent/10"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(120,119,198,0.15),transparent_50%)]"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(59,130,246,0.1),transparent_50%)]"></div>
 
-      {floatingIcons.map(({ Icon, delay, x, y }, index) => (
-        <motion.div
-          key={index}
-          className="absolute hidden md:block text-primary/20"
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{
-            opacity: [0.3, 0.6, 0.3],
-            scale: [1, 1.2, 1],
-            x: [x, x + 10, x],
-            y: [y, y - 10, y],
-          }}
-          transition={{
-            duration: 4,
-            delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          style={{
-            left: `${20 + index * 30}%`,
-            top: `${30 + index * 15}%`,
-          }}
-        >
-          <Icon className="h-16 w-16" />
-        </motion.div>
-      ))}
-
-      <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-        <motion.div
-          className="space-y-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.h1
-            className="text-5xl md:text-7xl font-bold text-foreground tracking-tight"
-            data-testid="text-hero-name"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+      <div className="max-w-6xl mx-auto px-6 py-20 relative z-10 w-full">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <motion.div
+            className="space-y-6"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            Ashish Gautam
-          </motion.h1>
+            <motion.h1
+              className="text-4xl md:text-6xl font-bold text-foreground"
+              data-testid="text-hero-name"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              Hi all, I'm Ashish Gautam 👋
+            </motion.h1>
 
-          <motion.p
-            className="text-xl md:text-2xl text-muted-foreground font-medium"
-            data-testid="text-hero-title"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            Technical Developer | Research Report Writer | Data Visualization & Automation
-          </motion.p>
+            <motion.p
+              className="text-lg md:text-xl text-muted-foreground leading-relaxed"
+              data-testid="text-hero-description"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              A passionate Technical Developer having an experience of building research tools, web platforms, and data-driven reports with React / Node.js / Python / Flask and some other cool libraries and frameworks.
+            </motion.p>
 
-          <motion.p
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto"
-            data-testid="text-hero-tagline"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            I build web tools and data-driven reports that turn research into impact.
-          </motion.p>
+            <motion.div
+              className="flex gap-3 pt-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              {socialLinks.map(({ Icon, href, label, testId }, index) => (
+                <motion.a
+                  key={index}
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="p-3 rounded-full bg-card hover-elevate active-elevate-2 transition-all shadow-lg"
+                  aria-label={label}
+                  data-testid={testId}
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Icon className="h-5 w-5" />
+                </motion.a>
+              ))}
+            </motion.div>
+
+            <motion.div
+              className="pt-6"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
+            >
+              <Button
+                size="lg"
+                onClick={scrollToContact}
+                className="text-base px-8 transition-transform hover:scale-105 shadow-lg hover:shadow-xl"
+                data-testid="button-hire-me"
+              >
+                Hire Me
+              </Button>
+            </motion.div>
+          </motion.div>
 
           <motion.div
-            className="pt-6"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.8 }}
+            className="flex justify-center items-center"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <Button
-              size="lg"
-              onClick={scrollToContact}
-              className="text-base px-8 transition-transform hover:scale-105 shadow-lg hover:shadow-xl"
-              data-testid="button-hire-me"
+            <motion.div
+              className="relative"
+              animate={{
+                y: [0, -20, 0],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
             >
-              Hire Me
-              <ArrowDown className="ml-2 h-4 w-4" />
-            </Button>
+              <div className="relative w-64 h-64 md:w-80 md:h-80">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-accent/30 rounded-full blur-3xl"></div>
+                <Avatar className="w-full h-full border-4 border-primary/20 shadow-2xl relative z-10">
+                  <AvatarFallback className="text-8xl bg-card text-primary">
+                    AG
+                  </AvatarFallback>
+                </Avatar>
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
-
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <ArrowDown className="h-6 w-6 text-muted-foreground" />
-      </motion.div>
     </section>
   );
 }
