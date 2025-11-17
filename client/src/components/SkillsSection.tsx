@@ -1,11 +1,21 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Code, FileText, BarChart3, BookOpen } from "lucide-react";
+import { Flame, Code, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 
 const skills = [
+  {
+    name: "Applied AI Development",
+    technologies: ["LLMs", "NLP", "AI Automation", "Flask AI Apps", "Prompt Engineering"],
+    icon: Flame,
+  },
+  {
+    name: "Cloud-Native DevOps & MLOps",
+    technologies: ["Docker", "Kubernetes", "Microservices", "Automation", "Orchestration"],
+    icon: Code,
+  },
   {
     name: "Full-stack Development",
     technologies: ["HTML", "CSS", "JavaScript", "React", "Python", "Flask", "Node.js"],
@@ -15,16 +25,6 @@ const skills = [
     name: "Research Report Writing",
     technologies: ["APA Format", "IEEE Format", "Harvard Format", "Academic Writing"],
     icon: FileText,
-  },
-  {
-    name: "Data Visualization",
-    technologies: ["Charts", "Dashboards", "D3.js", "Automation", "Analytics"],
-    icon: BarChart3,
-  },
-  {
-    name: "Technical Documentation",
-    technologies: ["API Docs", "Academic Reports", "User Guides", "Markdown"],
-    icon: BookOpen,
   },
 ];
 

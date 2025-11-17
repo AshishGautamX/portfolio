@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, FileText } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
@@ -44,6 +44,11 @@ export default function Navbar() {
     }
   };
 
+  const handleResumeClick = () => {
+    // Update this path to your actual resume file
+    window.open('/resume.pdf', '_blank');
+  };
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -78,10 +83,30 @@ export default function Navbar() {
                 )}
               </button>
             ))}
+            
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleResumeClick}
+              className="ml-2"
+              data-testid="button-resume"
+            >
+              <FileText className="h-4 w-4 mr-2" />
+              Resume
+            </Button>
+            
             <ThemeToggle />
           </div>
 
           <div className="flex md:hidden items-center gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleResumeClick}
+              data-testid="button-resume-mobile"
+            >
+              <FileText className="h-5 w-5" />
+            </Button>
             <ThemeToggle />
             <Button
               size="icon"

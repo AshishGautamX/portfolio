@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const socialLinks = [
   { Icon: Github, href: "https://github.com/ashishgautamx", label: "GitHub", testId: "link-hero-github" },
@@ -113,11 +112,11 @@ export default function HeroSection() {
             >
               <div className="relative w-64 h-64 md:w-80 md:h-80">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-accent/30 rounded-full blur-3xl"></div>
-                <Avatar className="w-full h-full border-4 border-primary/20 shadow-2xl relative z-10">
-                  <AvatarFallback className="text-8xl bg-card text-primary">
-                    AG
-                  </AvatarFallback>
-                </Avatar>
+                <img 
+                  src="/ashish.jpeg" 
+                  alt="Ashish Gautam"
+                  className="w-full h-full object-cover rounded-full border-4 border-primary/20 shadow-2xl relative z-10"
+                />
               </div>
             </motion.div>
           </motion.div>

@@ -6,47 +6,24 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 
-import dashboardImg from "@assets/generated_images/Research_Dashboard_Interface_a66c6db9.png";
-import reportGenImg from "@assets/generated_images/APA_Report_Generator_App_da4e5f7b.png";
-import dataVizImg from "@assets/generated_images/Data_Visualization_Platform_08fd2e3b.png";
-import docsPortalImg from "@assets/generated_images/Documentation_Portal_Interface_b0ae8268.png";
-
 const projects = [
   {
-    title: "Automated Research Dashboard",
+    title: "SwayamGrading",
     description:
-      "Interactive dashboard built with Python and Flask for real-time research data analysis and visualization.",
-    image: dashboardImg,
-    tags: ["Python", "Flask", "Data Analysis"],
-    demoUrl: "#",
-    codeUrl: "#",
+      "SwayamGrading is an AI-powered grading application designed to help educators automate evaluation and provide instant, transparent, and consistent results. The app supports assignment uploads, automatic evaluation, analytics, and feedback generation—reducing manual effort and saving time for both teachers and students.",
+    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=400&fit=crop",
+    tags: ["AI", "Education", "Flask", "NLP"],
+    demoUrl: "https://swayamgrading.onrender.com",
+    codeUrl: "https://swayamgrading.onrender.com",
   },
   {
-    title: "Publication-Ready APA Report Generator",
+    title: "AI Essay Grader",
     description:
-      "React-based tool that generates publication-ready research reports in APA format with automated citations.",
-    image: reportGenImg,
-    tags: ["React", "TypeScript", "APA"],
-    demoUrl: "#",
-    codeUrl: "#",
-  },
-  {
-    title: "Data Visualization Platform",
-    description:
-      "Interactive charting platform with real-time data visualization capabilities and customizable dashboards.",
-    image: dataVizImg,
-    tags: ["JavaScript", "D3.js", "Charts"],
-    demoUrl: "#",
-    codeUrl: "#",
-  },
-  {
-    title: "Technical Documentation Portal",
-    description:
-      "Automated system for converting Markdown documentation to professionally formatted PDF reports.",
-    image: docsPortalImg,
-    tags: ["Node.js", "Markdown", "PDF"],
-    demoUrl: "#",
-    codeUrl: "#",
+      "An AI-powered essay grading system using fine-tuned Phi-3 model with LoRA adapters for automated assessment of student answers across multiple subjects.",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop",
+    tags: ["AI", "Machine Learning", "Python", "LoRA"],
+    demoUrl: "https://github.com/AshishGautamX/ai-essay-grader",
+    codeUrl: "https://github.com/AshishGautamX/ai-essay-grader",
   },
 ];
 
@@ -123,7 +100,7 @@ export default function ProjectsSection() {
                     <Button
                       variant="default"
                       size="sm"
-                      onClick={() => console.log(`View demo: ${project.title}`)}
+                      onClick={() => window.open(project.demoUrl, '_blank')}
                       data-testid={`button-demo-${index}`}
                       className="transition-transform hover:scale-105"
                     >
@@ -133,7 +110,7 @@ export default function ProjectsSection() {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => console.log(`View code: ${project.title}`)}
+                      onClick={() => window.open(project.codeUrl, '_blank')}
                       data-testid={`button-code-${index}`}
                       className="transition-transform hover:scale-105"
                     >
