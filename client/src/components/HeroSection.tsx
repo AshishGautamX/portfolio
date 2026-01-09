@@ -44,13 +44,22 @@ export default function HeroSection() {
             </motion.h1>
 
             <motion.p
+              className="text-lg md:text-xl font-semibold text-primary pt-2"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              SIH’25 Winner | Tech Dev @Thesisly | Web Dev @Adcuesta
+            </motion.p>
+
+            <motion.p
               className="text-lg md:text-xl text-muted-foreground leading-relaxed"
               data-testid="text-hero-description"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              A passionate Technical Developer having an experience of building research tools, web platforms, and data-driven reports with React / Node.js / Python / Flask and some other cool libraries and frameworks.
+              A passionate Technical Developer experienced in building research tools, web platforms, and data-driven reports using React, Node.js, and Python/Flask.
             </motion.p>
 
             <motion.div
@@ -102,7 +111,7 @@ export default function HeroSection() {
             <motion.div
               className="relative"
               animate={{
-                y: [0, -20, 0],
+                y: [0, -5, 0],
               }}
               transition={{
                 duration: 4,
@@ -112,8 +121,8 @@ export default function HeroSection() {
             >
               <div className="relative w-64 h-64 md:w-80 md:h-80">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-accent/30 rounded-full blur-3xl"></div>
-                <img 
-                  src="/ashish.jpeg" 
+                <img
+                  src="/ashish.jpeg"
                   alt="Ashish Gautam"
                   className="w-full h-full object-cover rounded-full border-4 border-primary/20 shadow-2xl relative z-10"
                 />
