@@ -8,20 +8,18 @@ import { useRef, useState } from "react";
 
 const projects = [
   {
-    title: "SwayamGrading",
+    title: "SmearVision AI",
     description:
-      "SwayamGrading is an AI-powered grading application designed to help educators automate evaluation and provide instant, transparent, and consistent results. The app supports assignment uploads, automatic evaluation, analytics, and feedback generation—reducing manual effort and saving time for both teachers and students.",
-    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=400&fit=crop",
-    tags: ["AI", "Education", "Flask", "NLP"],
-    demoUrl: "https://swayamgrading.onrender.com",
-    codeUrl: "https://swayamgrading.onrender.com",
+      "Developed ensemble deep-learning pipeline combining 4 architectures (ResNet50, EfficientNet-B2, DenseNet121, ViT) for Multiple Myeloma detection, achieving 100% sensitivity and 0.867 F1-score on 1,615 clinical plasma cell images. Implemented patient-aware data splitting preventing data leakage.",
+    tags: ["Python", "PyTorch", "timm", "Optuna", "OpenCV"],
+    demoUrl: "https://github.com/AshishGautamX/SmearVision-AI",
+    codeUrl: "https://github.com/AshishGautamX/SmearVision-AI",
   },
   {
-    title: "AI Essay Grader",
+    title: "AI-Powered Essay Grader",
     description:
-      "An AI-powered essay grading system using fine-tuned Phi-3 model with LoRA adapters for automated assessment of student answers across multiple subjects.",
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop",
-    tags: ["AI", "Machine Learning", "Python", "LoRA"],
+      "Fine-tuned Phi-3-mini (3.8B parameters) using LoRA on 10,000+ essay samples, achieving 85% agreement rate with human graders. Optimized model size by 75% via 4-bit quantization, enabling deployment on consumer hardware with 2GB VRAM while maintaining 90% of original accuracy.",
+    tags: ["Python", "PyTorch", "LoRA", "Hugging Face"],
     demoUrl: "https://github.com/AshishGautamX/ai-essay-grader",
     codeUrl: "https://github.com/AshishGautamX/ai-essay-grader",
   },
@@ -54,27 +52,25 @@ export default function ProjectsSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               onHoverStart={() => setHoveredIndex(index)}
               onHoverEnd={() => setHoveredIndex(null)}
+              className="h-full"
             >
               <Card
-                className="overflow-hidden transition-all duration-300 hover:shadow-2xl"
+                className="overflow-hidden transition-all duration-300 hover:shadow-2xl h-full flex flex-col"
                 data-testid={`card-project-${index}`}
               >
                 <motion.div
-                  className="aspect-video overflow-hidden bg-muted"
+                  className="aspect-video overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-background"
                   animate={{
                     scale: hoveredIndex === index ? 1.05 : 1,
                   }}
                   transition={{ duration: 0.3 }}
                 >
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                    data-testid={`img-project-${index}`}
-                  />
+                  <div className="w-full h-full flex items-center justify-center text-primary/20">
+                    <Github className="w-16 h-16 opacity-50" />
+                  </div>
                 </motion.div>
 
-                <div className="p-6 space-y-4">
+                <div className="p-6 space-y-4 flex flex-col flex-grow">
                   <h3
                     className="text-xl font-semibold"
                     data-testid={`text-project-title-${index}`}
@@ -82,7 +78,7 @@ export default function ProjectsSection() {
                     {project.title}
                   </h3>
 
-                  <p className="text-muted-foreground leading-relaxed">{project.description}</p>
+                  <p className="text-muted-foreground leading-relaxed flex-grow">{project.description}</p>
 
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag, tagIndex) => (
@@ -98,16 +94,6 @@ export default function ProjectsSection() {
                     animate={{ opacity: hoveredIndex === index ? 1 : 0.7 }}
                   >
                     <Button
-                      variant="default"
-                      size="sm"
-                      onClick={() => window.open(project.demoUrl, '_blank')}
-                      data-testid={`button-demo-${index}`}
-                      className="transition-transform hover:scale-105"
-                    >
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      View Demo
-                    </Button>
-                    <Button
                       variant="outline"
                       size="sm"
                       onClick={() => window.open(project.codeUrl, '_blank')}
@@ -115,7 +101,7 @@ export default function ProjectsSection() {
                       className="transition-transform hover:scale-105"
                     >
                       <Github className="h-4 w-4 mr-2" />
-                      View Code
+                      View on GitHub
                     </Button>
                   </motion.div>
                 </div>

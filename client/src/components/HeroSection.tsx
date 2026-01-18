@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const socialLinks = [
   { Icon: Github, href: "https://github.com/ashishgautamx", label: "GitHub", testId: "link-hero-github" },
   { Icon: Linkedin, href: "https://www.linkedin.com/in/ashishgautamx", label: "LinkedIn", testId: "link-hero-linkedin" },
-  { Icon: Mail, href: "mailto:ashishgautam835@gmail.com", label: "Email", testId: "link-hero-email" },
+  { Icon: Mail, href: "mailto:gautamashishbxr@gmail.com", label: "Email", testId: "link-hero-email" },
 ];
 
 export default function HeroSection() {
@@ -40,7 +40,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Hi all, I'm Ashish Gautam 👋
+              Ashish Gautam
             </motion.h1>
 
             <motion.p
@@ -59,7 +59,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              A passionate Technical Developer experienced in building research tools, web platforms, and data-driven reports using React, Node.js, and Python/Flask.
+              Building AI-powered tools and production-ready web applications.
             </motion.p>
 
             <motion.div
@@ -97,7 +97,7 @@ export default function HeroSection() {
                 className="text-base px-8 transition-transform hover:scale-105 shadow-lg hover:shadow-xl"
                 data-testid="button-hire-me"
               >
-                Hire Me
+                Let's Connect
               </Button>
             </motion.div>
           </motion.div>
