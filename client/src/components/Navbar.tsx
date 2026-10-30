@@ -4,24 +4,24 @@ import { Menu, X, FileText } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
+  { name: "Experience", href: "#experience" },
+  { name: "Activity", href: "#activity" },
+  { name: "Skills", href: "#skills" },
   { name: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const [activeSection, setActiveSection] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      const sections = navItems.map(item => item.href.substring(1));
-      const scrollPosition = window.scrollY + 100;
+      const sections = navItems.map((item) => item.href.substring(1));
+      const scrollPosition = window.scrollY + 140;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = document.getElementById(sections[i]);
@@ -32,7 +32,7 @@ export default function Navbar() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -45,101 +45,110 @@ export default function Navbar() {
   };
 
   const handleResumeClick = () => {
-    // Update this path to your actual resume file
-    window.open('/resume.pdf', '_blank');
+    window.open("/resume.pdf", "_blank");
   };
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-background/80 backdrop-blur-md border-b border-border shadow-lg" : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+        isScrolled
+          ? "bg-background/85 backdrop-blur-md border-b border-border shadow-xs"
+          : "bg-transparent border-b border-transparent"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
+          
+          {/* Logo / Brand Name */}
           <button
             onClick={() => scrollToSection("#home")}
-            className="text-lg font-semibold text-foreground hover-elevate active-elevate-2 px-2 py-1 rounded-md transition-transform hover:scale-105"
+            className="text-base font-semibold text-foreground hover:opacity-80 transition-opacity tracking-tight"
             data-testid="link-logo"
           >
             Ashish Gautam
           </button>
 
-          <div className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => (
-              <button
-                key={item.name}
-                onClick={() => scrollToSection(item.href)}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-all hover-elevate active-elevate-2 relative ${
-                  activeSection === item.href.substring(1)
-                    ? "text-primary"
-                    : "text-muted-foreground"
-                }`}
-                data-testid={`link-nav-${item.name.toLowerCase()}`}
-              >
-                {item.name}
-                {activeSection === item.href.substring(1) && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-primary rounded-full"></span>
-                )}
-              </button>
-            ))}
-            
+          {/* Desktop Navigation Links */}
+          <div className="hidden md:flex items-center gap-1 text-sm font-medium">
+            {navItems.map((item) => {
+              const isActive = activeSection === item.href.substring(1);
+              return (
+                <button
+                  key={item.name}
+                  onClick={() => scrollToSection(item.href)}
+                  className={`px-3 py-1.5 rounded-md transition-colors ${
+                    isActive
+                      ? "text-foreground font-semibold"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                  data-testid={`link-nav-${item.name.toLowerCase()}`}
+                >
+                  {item.name}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Actions: Resume & Theme Toggle */}
+          <div className="hidden md:flex items-center gap-3">
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
               onClick={handleResumeClick}
-              className="ml-2"
-              data-testid="button-resume"
+              className="text-xs h-8 px-3 border-border hover:bg-muted text-foreground gap-1.5 font-mono"
+              data-testid="button-nav-resume"
             >
-              <FileText className="h-4 w-4 mr-2" />
-              Resume
+              <FileText className="h-3.5 w-3.5" />
+              <span>Resume</span>
             </Button>
-            
             <ThemeToggle />
           </div>
 
-          <div className="flex md:hidden items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleResumeClick}
-              data-testid="button-resume-mobile"
-            >
-              <FileText className="h-5 w-5" />
-            </Button>
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center gap-2">
             <ThemeToggle />
-            <Button
-              size="icon"
-              variant="ghost"
+            <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              data-testid="button-mobile-menu"
+              className="p-2.5 rounded-md border border-border text-foreground hover:bg-muted min-h-[44px] min-w-[44px] flex items-center justify-center"
+              aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
+            </button>
           </div>
-        </div>
-      </div>
 
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-card border-t border-border backdrop-blur-md">
-          <div className="px-6 py-4 space-y-2">
+        </div>
+
+        {/* Mobile Navigation Dropdown */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden border-t border-border py-4 px-2 space-y-1.5 bg-background/95 backdrop-blur-xl shadow-xl rounded-b-xl">
             {navItems.map((item) => (
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className={`block w-full text-left px-4 py-2 rounded-md text-sm font-medium transition-colors hover-elevate active-elevate-2 ${
+                className={`block w-full text-left px-4 py-3 rounded-md text-sm font-medium min-h-[44px] ${
                   activeSection === item.href.substring(1)
-                    ? "text-primary"
-                    : "text-muted-foreground"
+                    ? "text-foreground bg-muted font-semibold"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                 }`}
-                data-testid={`link-mobile-${item.name.toLowerCase()}`}
               >
                 {item.name}
               </button>
             ))}
+            <div className="pt-3 border-t border-border px-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleResumeClick}
+                className="w-full text-sm font-mono justify-center gap-2 h-11"
+              >
+                <FileText className="h-4 w-4" />
+                <span>Resume (PDF)</span>
+              </Button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+
+      </div>
     </nav>
   );
 }

@@ -1,42 +1,44 @@
-import { useState, useRef } from "react";
-import { Card } from "@/components/ui/card";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, Linkedin, Github } from "lucide-react";
+import { Mail, Linkedin, Github, Phone, Send, Terminal, CheckCircle2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
 
-const socialLinks = [
+const contactLinks = [
   {
     icon: Mail,
     label: "Email",
-    value: "ashishgautam835@gmail.com",
-    href: "mailto:ashishgautam835@gmail.com",
-    testId: "link-email",
+    value: "gautamashishbxr@gmail.com",
+    href: "mailto:gautamashishbxr@gmail.com",
+    testId: "link-contact-email",
+  },
+  {
+    icon: Phone,
+    label: "Phone",
+    value: "+91-7903497779",
+    href: "tel:+917903497779",
+    testId: "link-contact-phone",
   },
   {
     icon: Linkedin,
     label: "LinkedIn",
     value: "linkedin.com/in/ashishgautamx",
     href: "https://www.linkedin.com/in/ashishgautamx",
-    testId: "link-linkedin",
+    testId: "link-contact-linkedin",
   },
   {
     icon: Github,
     label: "GitHub",
-    value: "github.com/ashishgautamx",
-    href: "https://github.com/ashishgautamx",
-    testId: "link-github",
+    value: "github.com/AshishGautamX",
+    href: "https://github.com/AshishGautamX",
+    testId: "link-contact-github",
   },
 ];
 
 export default function ContactSection() {
   const { toast } = useToast();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -48,40 +50,23 @@ export default function ContactSection() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Using Formspree (free service) to handle form submissions
-    // You need to sign up at https://formspree.io/ and get your form endpoint
-    // Replace YOUR_FORM_ID with your actual Formspree form ID
-    
     try {
-      const response = await fetch("https://formspree.io/f/YOUR_FORM_ID", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-        }),
-      });
-
-      if (response.ok) {
-        toast({
-          title: "Message sent!",
-          description: "Thank you for reaching out. I'll get back to you soon.",
-        });
-        setFormData({ name: "", email: "", message: "" });
-      } else {
-        throw new Error("Failed to send message");
-      }
-    } catch (error) {
-      // Fallback: Open email client
-      const mailtoLink = `mailto:ashishgautam835@gmail.com?subject=Portfolio Contact from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message)}%0A%0AFrom: ${encodeURIComponent(formData.email)}`;
+      // Direct mailto fallback or form handling
+      const mailtoLink = `mailto:gautamashishbxr@gmail.com?subject=Contact from ${encodeURIComponent(
+        formData.name
+      )}&body=${encodeURIComponent(formData.message)}%0A%0AFrom: ${encodeURIComponent(formData.email)}`;
       window.location.href = mailtoLink;
-      
+
       toast({
-        title: "Opening email client",
-        description: "Your default email client will open to send the message.",
+        title: "Message Initiated",
+        description: "Opening your default mail client with prefilled details.",
+      });
+      setFormData({ name: "", email: "", message: "" });
+    } catch {
+      toast({
+        title: "Failed to dispatch",
+        description: "Please email directly at gautamashishbxr@gmail.com",
+        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
@@ -89,132 +74,121 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-32 bg-card/30" ref={ref}>
-      <div className="max-w-6xl mx-auto px-6">
-        <motion.h2
-          className="text-3xl md:text-4xl font-semibold text-center mb-4"
-          data-testid="text-section-contact"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
-        >
-          Get In Touch
-        </motion.h2>
-        <motion.p
-          className="text-center text-muted-foreground mb-16 text-lg"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          Let's collaborate to turn your ideas into reality.
-        </motion.p>
-
-        <div className="grid md:grid-cols-5 gap-12">
-          <motion.div
-            className="md:col-span-3"
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <Card className="p-8 shadow-xl">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Name</Label>
-                  <Input
-                    id="name"
-                    placeholder="Your name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    required
-                    data-testid="input-name"
-                    className="transition-all focus:scale-[1.02]"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="your.email@example.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                    data-testid="input-email"
-                    className="transition-all focus:scale-[1.02]"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="message">Message</Label>
-                  <Textarea
-                    id="message"
-                    placeholder="Tell me about your project..."
-                    rows={6}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    required
-                    data-testid="input-message"
-                    className="transition-all focus:scale-[1.02]"
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="w-full transition-transform hover:scale-105 shadow-lg hover:shadow-xl"
-                  data-testid="button-send"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                </Button>
-              </form>
-            </Card>
-          </motion.div>
-
-          <motion.div
-            className="md:col-span-2 space-y-6"
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <Card className="p-6 shadow-xl">
-              <h3 className="font-semibold text-lg mb-4">Connect With Me</h3>
-              <div className="space-y-4">
-                {socialLinks.map((link, index) => {
-                  const Icon = link.icon;
-                  return (
-                    <motion.a
-                      key={index}
-                      href={link.href}
-                      target={link.href.startsWith("http") ? "_blank" : undefined}
-                      rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-all hover-elevate active-elevate-2 p-2 rounded-md group"
-                      data-testid={link.testId}
-                      whileHover={{ x: 5 }}
-                    >
-                      <motion.div
-                        whileHover={{ scale: 1.2, rotate: 5 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        <Icon className="h-5 w-5" />
-                      </motion.div>
-                      <span className="text-sm">{link.value}</span>
-                    </motion.a>
-                  );
-                })}
-              </div>
-            </Card>
-
-            <Card className="p-6 bg-primary/5 shadow-lg">
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                I'm always open to discussing new projects, creative ideas, or opportunities to be
-                part of your vision. Whether you need technical development, research support, or
-                both, feel free to reach out!
-              </p>
-            </Card>
-          </motion.div>
+    <section id="contact" className="py-20 md:py-28 border-b border-border bg-background">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        
+        {/* Section Header */}
+        <div className="mb-12 md:mb-16">
+          <div className="flex items-center gap-2 mb-2 font-mono text-xs uppercase tracking-wider text-muted-foreground">
+            <Terminal className="h-3.5 w-3.5 text-foreground" />
+            <span>Connect & Collaborate</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground" data-testid="text-section-contact">
+            Get In Touch
+          </h2>
+          <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-2xl">
+            Available for AI infrastructure roles, backend systems engineering, and distributed computing discussions.
+          </p>
         </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Direct Channels */}
+          <div className="lg:col-span-5 space-y-4 font-mono text-xs">
+            <span className="uppercase tracking-wider text-muted-foreground block mb-2">
+              Direct Contact Details
+            </span>
+
+            {contactLinks.map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <a
+                  key={idx}
+                  href={item.href}
+                  target={item.href.startsWith("http") ? "_blank" : undefined}
+                  rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="p-4 rounded-lg border border-border bg-card hover:border-foreground/30 transition-all flex items-center justify-between group"
+                  data-testid={item.testId}
+                >
+                  <div className="flex items-center gap-3">
+                    <Icon className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors" />
+                    <div>
+                      <span className="text-[10px] text-muted-foreground uppercase block">
+                        {item.label}
+                      </span>
+                      <span className="text-foreground font-semibold">
+                        {item.value}
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              );
+            })}
+
+            <div className="p-4 rounded-lg border border-border bg-muted/30 text-muted-foreground space-y-1">
+              <span className="text-foreground font-semibold block">Location</span>
+              <span>Bilaspur, Chhattisgarh / Remote Available</span>
+            </div>
+          </div>
+
+          {/* Quick Message Form */}
+          <div className="lg:col-span-7 p-6 md:p-8 rounded-lg border border-border bg-card shadow-sm">
+            <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground block mb-6">
+              Send a Direct Message
+            </span>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="name" className="text-xs font-mono">Name</Label>
+                <Input
+                  id="name"
+                  required
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  placeholder="Your Name / Organization"
+                  className="font-mono text-xs bg-muted/30 border-border"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-xs font-mono">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  placeholder="name@company.com"
+                  className="font-mono text-xs bg-muted/30 border-border"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="message" className="text-xs font-mono">Message</Label>
+                <Textarea
+                  id="message"
+                  required
+                  rows={4}
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  placeholder="Tell me about your team, system architecture, or problem statement..."
+                  className="font-mono text-xs bg-muted/30 border-border"
+                />
+              </div>
+
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full font-mono text-xs bg-foreground text-background hover:bg-foreground/90 transition-all gap-2 h-10 mt-2"
+              >
+                <Send className="h-3.5 w-3.5" />
+                <span>{isSubmitting ? "Dispatching..." : "Send Message"}</span>
+              </Button>
+            </form>
+          </div>
+
+        </div>
+
       </div>
     </section>
   );

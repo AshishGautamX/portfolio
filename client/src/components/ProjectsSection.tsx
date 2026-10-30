@@ -1,179 +1,227 @@
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, Terminal, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
 
-const projects = [
+interface Project {
+  title: string;
+  category: string;
+  tagline: string;
+  description: string;
+  keyHighlights: string[];
+  metrics: { label: string; value: string }[];
+  techStack: string[];
+  codeUrl?: string;
+  liveUrl?: string;
+  award?: string;
+}
+
+const projects: Project[] = [
   {
-    title: "Mulyankan AI",
-    subtitle: "AI-Powered Grading Platform",
+    title: "PacketSentinel",
+    category: "World Model & Network Security",
+    tagline: "Transformer world model for continuous temporal network intrusion detection",
     description:
-      "Full-stack AI grading platform with JWT-secured REST APIs and rubric-based evaluation across 9+ curriculum levels. Integrated OCR pipeline and batch grading jobs with real-time status polling, supporting PDF, DOCX, and image submissions.",
-    impact: [
-      "Reduces teacher grading workload by 3–5 hrs/week",
-      "Criterion-wise scores with AI-generated feedback",
-      "Multi-format submissions: PDF, DOCX, images",
+      "Engineered an autoregressive world model (3.28M parameters) forecasting network states over a 91-feature continuous PCAP pipeline. Addressed extreme 80%+ class imbalance using Focal Loss and effective-number weighting, outperforming baseline models by 17.7x in false-alarm reduction.",
+    keyHighlights: [
+      "92.41% Macro-F1 at 0.56% False Positive Rate on real-world intrusion PCAPs",
+      "Generalized to CIC-IoT-2023 at 99.83% Macro-F1 with zero architecture changes",
+      "Streamlit inference dashboard with Captum attribution, serving 16,190 windows/sec on an NVIDIA L4 GPU",
     ],
-    tags: ["React", "Node.js", "Express", "PostgreSQL", "Prisma", "Ollama", "Gemini API"],
-    demoUrl: "https://mulyankanai.netlify.app/",
-    codeUrl: "https://github.com/AshishGautamX",
-    hasLive: true,
-    period: "Jan 2025 – Sep 2025",
-    gradient: "from-violet-500/20 via-purple-500/10 to-background",
-    accentColor: "border-violet-500/40",
-    badgeColor: "bg-violet-500/10 text-violet-400 border-violet-500/30",
+    metrics: [
+      { label: "Macro-F1", value: "92.41%" },
+      { label: "False Alarm Cut", value: "17.7x" },
+      { label: "Throughput", value: "16,190 w/s" },
+    ],
+    techStack: ["PyTorch", "Transformers", "Captum", "Streamlit", "NVIDIA L4"],
+    codeUrl: "https://github.com/AshishGautamX/PacketSentinel",
   },
   {
-    title: "NextGame Platform",
-    subtitle: "Full-Stack Gaming Platform",
+    title: "Mulyankan AI (SwayamGrading)",
+    category: "Distributed AI Systems",
+    tagline: "Full-stack AI grading engine with asynchronous OCR & Celery queues",
+    award: "NHIDE 2026 National Finalist · Top 20 Nationally",
     description:
-      "Engineered mobile gameplay for 37+ game files via viewport scaling, swipe, D-pad, and touch-to-mouse input layers. Led full-stack migration from PHP to Next.js App Router, building 13 REST API route handlers, 11 pages, and 10 reusable components.",
-    impact: [
-      "37+ games with mobile touch controls",
-      "Session-protected dynamic routes with point rewards",
-      "Preserved 4 legacy MySQL tables via Prisma",
+      "Designed robust backend REST APIs and distributed job queues for an automated assessment platform evaluating 9+ curriculum tiers. Handled multi-format submissions (PDF, DOCX, handwritten scans) via an asynchronous OCR pipeline, saving educators 3–5 hours per week.",
+    keyHighlights: [
+      "Fault-tolerant batch processing using Redis caching and Celery background workers",
+      "Centralized schema design with PostgreSQL and Prisma with real-time evaluation polling",
+      "Recognized among top 20 teams nationally at the NHIDE 2026 Hackathon",
     ],
-    tags: ["Next.js", "React", "TypeScript", "Prisma", "MySQL", "App Router"],
-    demoUrl: "https://playcade.store",
+    metrics: [
+      { label: "Workload Cut", value: "3–5 hrs/wk" },
+      { label: "Standing", value: "Top 20 Teams" },
+      { label: "Curricula", value: "9+ Tiers" },
+    ],
+    techStack: ["Python", "FastAPI", "PostgreSQL", "Redis", "Celery", "Prisma"],
     codeUrl: "https://github.com/AshishGautamX",
-    hasLive: true,
-    period: "Dec 2025 – Present",
-    gradient: "from-cyan-500/20 via-blue-500/10 to-background",
-    accentColor: "border-cyan-500/40",
-    badgeColor: "bg-cyan-500/10 text-cyan-400 border-cyan-500/30",
+    liveUrl: "https://mulyankanai.netlify.app/",
+  },
+  {
+    title: "K8s-LLM-Scheduler",
+    category: "Cloud-Native Infrastructure",
+    tagline: "Intelligent Kubernetes pod scheduler powered by Meta's Llama-3.3-70B",
+    description:
+      "Custom Kubernetes scheduler using Meta's Llama-3.3-70B model via HuggingFace Inference API to analyze cluster telemetry and determine optimal node placement under varying traffic loads.",
+    keyHighlights: [
+      "Configurable circuit breakers and exponential backoff retry fallbacks",
+      "Dynamic token caching for sub-50ms repeat scheduling decisions",
+      "Containerized lightweight deployment ready for bare-metal or cloud K8s clusters",
+    ],
+    metrics: [
+      { label: "LLM Model", value: "Llama-3.3-70B" },
+      { label: "Availability", value: "Circuit-Ready" },
+      { label: "Cache Hit", value: ">85%" },
+    ],
+    techStack: ["Python", "Kubernetes", "Meta Llama-3.3-70B", "HuggingFace", "Docker"],
+    codeUrl: "https://github.com/AshishGautamX/K8s-LLM-Scheduler",
+  },
+  {
+    title: "Quantum-Secure Architecture",
+    category: "Defense Protocols",
+    tagline: "Cryptographic defense protocol for eavesdropping-resistant communication",
+    award: "SIH 2025 National Winner · ISRO's Quantum Frontiers Award",
+    description:
+      "Awarded ISRO's Quantum Frontiers Award among 15,000+ competitors at Smart India Hackathon 2025 for engineering a post-quantum secure communication system protecting mission-critical network channels against timing analysis and eavesdropping.",
+    keyHighlights: [
+      "Evaluated by national scientists from ISRO and defense intelligence",
+      "Engineered hardware-aware cryptographic key verification protocols",
+      "Validated fundamental systems engineering and algorithm complexity",
+    ],
+    metrics: [
+      { label: "Award", value: "ISRO Winner" },
+      { label: "Competitors", value: "15,000+ Teams" },
+      { label: "Security", value: "Post-Quantum" },
+    ],
+    techStack: ["Python", "Post-Quantum Cryptography", "Socket Protocols", "Network Security"],
+    codeUrl: "https://github.com/AshishGautamX",
   },
 ];
 
 export default function ProjectsSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
   return (
-    <section id="projects" className="py-20 md:py-32" ref={ref}>
-      <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2
-            className="text-3xl md:text-4xl font-semibold mb-4"
-            data-testid="text-section-projects"
-          >
-            Featured Projects
+    <section id="projects" className="py-20 md:py-28 border-b border-border bg-background">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        
+        {/* Section Header */}
+        <div className="mb-12 md:mb-16">
+          <div className="flex items-center gap-2 mb-2 font-mono text-xs uppercase tracking-wider text-muted-foreground">
+            <Terminal className="h-3.5 w-3.5 text-foreground" />
+            <span>Featured Deliverables</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground" data-testid="text-section-projects">
+            Systems & Infrastructure Projects
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Production-grade applications — live, used daily, built to scale.
+          <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-2xl">
+            Transformer world models, distributed job queues, and cloud-native schedulers with verified metrics.
           </p>
-        </motion.div>
+        </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        {/* Project Cards */}
+        <div className="space-y-8 md:space-y-12">
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              onHoverStart={() => setHoveredIndex(index)}
-              onHoverEnd={() => setHoveredIndex(null)}
-              className="h-full"
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.35 }}
+              className="p-6 sm:p-8 rounded-xl border border-border bg-card/40 hover:border-foreground/30 transition-all space-y-6"
+              data-testid={`card-project-${index}`}
             >
-              <Card
-                className={`overflow-hidden transition-all duration-300 hover:shadow-2xl h-full flex flex-col border-2 ${project.accentColor} hover:scale-[1.01]`}
-                data-testid={`card-project-${index}`}
-              >
-                {/* Header gradient band */}
-                <div className={`bg-gradient-to-br ${project.gradient} px-6 pt-6 pb-4`}>
-                  <div className="flex items-start justify-between gap-3 mb-3">
-                    <div>
-                      <h3
-                        className="text-xl font-bold text-foreground"
-                        data-testid={`text-project-title-${index}`}
-                      >
-                        {project.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground mt-0.5">{project.subtitle}</p>
-                    </div>
-                    {/* Live badge */}
-                    {project.hasLive && (
-                      <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/15 border border-green-500/30 text-green-400 text-xs font-semibold shrink-0">
-                        <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                        Live
+              {/* Header */}
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-border pb-5">
+                <div className="space-y-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
+                      {project.title}
+                    </h3>
+                    <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-muted text-foreground border border-border">
+                      {project.category}
+                    </span>
+                    {project.award && (
+                      <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 border border-amber-500/30">
+                        {project.award}
                       </span>
                     )}
                   </div>
-                  <Badge variant="outline" className="text-xs text-muted-foreground border-border/50">
-                    {project.period}
-                  </Badge>
+                  <p className="text-sm text-muted-foreground font-mono">
+                    {project.tagline}
+                  </p>
                 </div>
 
-                <div className="p-6 space-y-4 flex flex-col flex-grow">
-                  <p className="text-muted-foreground leading-relaxed text-sm">
-                    {project.description}
-                  </p>
-
-                  {/* Impact bullets */}
-                  <ul className="space-y-1.5">
-                    {project.impact.map((point, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Tech tags */}
-                  <div className="flex flex-wrap gap-2 pt-1">
-                    {project.tags.map((tag, tagIndex) => (
-                      <Badge
-                        key={tagIndex}
-                        variant="outline"
-                        className={`text-xs ${project.badgeColor}`}
-                        data-testid={`badge-tag-${index}-${tagIndex}`}
-                      >
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-
-                  {/* Action buttons */}
-                  <motion.div
-                    className="flex gap-3 pt-2 mt-auto"
-                    initial={{ opacity: 0.7 }}
-                    animate={{ opacity: hoveredIndex === index ? 1 : 0.8 }}
-                  >
-                    {project.hasLive && (
-                      <Button
-                        size="sm"
-                        onClick={() => window.open(project.demoUrl, "_blank")}
-                        data-testid={`button-live-${index}`}
-                        className="bg-green-600 hover:bg-green-500 text-white gap-2 transition-all hover:scale-105 shadow-md hover:shadow-green-500/25"
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                        Live Site
-                      </Button>
-                    )}
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => window.open(project.codeUrl, "_blank")}
-                      data-testid={`button-code-${index}`}
-                      className="transition-transform hover:scale-105 gap-2"
+                {/* Links */}
+                <div className="flex items-center gap-2 shrink-0 pt-2 sm:pt-0">
+                  {project.codeUrl && (
+                    <a
+                      href={project.codeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3.5 py-2 rounded-md border border-border hover:bg-muted text-foreground text-xs font-mono transition-colors flex items-center gap-1.5 min-h-[44px]"
+                      data-testid={`link-code-${index}`}
                     >
                       <Github className="h-4 w-4" />
-                      GitHub
-                    </Button>
-                  </motion.div>
+                      <span>Code</span>
+                    </a>
+                  )}
+                  {project.liveUrl && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3.5 py-2 rounded-md bg-foreground text-background hover:bg-foreground/90 text-xs font-mono transition-colors flex items-center gap-1.5 min-h-[44px]"
+                      data-testid={`link-demo-${index}`}
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                      <span>Live Demo</span>
+                    </a>
+                  )}
                 </div>
-              </Card>
+              </div>
+
+              {/* Description */}
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {project.description}
+              </p>
+
+              {/* Key Highlights */}
+              <div className="space-y-2 pt-1 font-mono text-xs">
+                {project.keyHighlights.map((highlight, hIdx) => (
+                  <div key={hIdx} className="flex items-start gap-2.5 text-foreground/90">
+                    <span className="w-1.5 h-1.5 rounded-full bg-foreground shrink-0 mt-1.5" />
+                    <span className="leading-relaxed">{highlight}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Metrics & Tech Stack */}
+              <div className="pt-4 border-t border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono text-xs">
+                <div className="flex flex-wrap gap-4">
+                  {project.metrics.map((m, mIdx) => (
+                    <div key={mIdx}>
+                      <span className="font-bold text-foreground text-sm block">
+                        {m.value}
+                      </span>
+                      <span className="text-[10px] text-muted-foreground uppercase">
+                        {m.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-wrap gap-1.5 pt-2 sm:pt-0">
+                  {project.techStack.map((tech, tIdx) => (
+                    <span
+                      key={tIdx}
+                      className="px-2 py-0.5 rounded bg-muted text-muted-foreground text-[11px] border border-border"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
+
       </div>
     </section>
   );

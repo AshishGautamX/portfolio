@@ -1,251 +1,175 @@
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Briefcase, GraduationCap, Trophy, Award, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import {
-  Trophy,
-  Zap,
-  Monitor,
-  TrendingUp,
-  Briefcase,
-  GraduationCap,
-  Calendar,
-  Award
-} from "lucide-react";
 
-const skillsData = [
-  { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
-  { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
-  { name: "React.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-  { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
-  { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-  { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-  { name: "C++", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" },
-  { name: "HTML", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
-  { name: "CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
-  { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
-  { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
-  { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
-  { name: "GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
-  { name: "VS Code", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
-];
+interface ExperienceItem {
+  role: string;
+  company: string;
+  period: string;
+  location: string;
+  points: string[];
+}
 
-const ScrollingSkills = () => {
-  const [isPaused, setIsPaused] = useState(false);
-  const triplicatedSkills = [...skillsData, ...skillsData, ...skillsData];
-
-  return (
-    <div className="relative overflow-hidden py-8">
-      <motion.div
-        className="flex gap-8"
-        animate={{
-          x: isPaused ? undefined : [0, -(skillsData.length * 88)],
-        }}
-        transition={{
-          x: {
-            repeat: Infinity,
-            repeatType: "loop",
-            duration: 50,
-            ease: "linear",
-          },
-        }}
-        style={{ width: "max-content" }}
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-      >
-        {triplicatedSkills.map((skill, index) => (
-          <motion.div
-            key={`skill-${index}`}
-            className="flex flex-col items-center gap-2 min-w-[80px]"
-            whileHover={{ scale: 1.1 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <div className="w-16 h-16 flex items-center justify-center bg-card rounded-lg shadow-lg p-3 border-2 border-border">
-              <img
-                src={skill.icon}
-                alt={skill.name}
-                className="w-full h-full object-contain dark:brightness-100 brightness-90 contrast-110"
-                style={{ filter: "drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1))" }}
-              />
-            </div>
-            <span className="text-xs font-medium text-foreground">{skill.name}</span>
-          </motion.div>
-        ))}
-      </motion.div>
-    </div>
-  );
-};
-
-const stats = [
-  { label: "Production Screens", value: "12+", icon: Monitor, color: "text-primary" },
-  { label: "APIs Integrated", value: "17+", icon: Zap, color: "text-blue-500" },
-  { label: "Reporting Time Saved", value: "60–80%", icon: TrendingUp, color: "text-green-500" },
-  { label: "SIH'25 Winner", value: "National", icon: Trophy, color: "text-yellow-500" },
-];
-
-const experiences = [
+const experiences: ExperienceItem[] = [
   {
-    role: "Frontend Developer Intern",
-    company: "Adcuesta · Admin Panel + NextGame",
-    period: "Dec 2025 – Present",
-    description: "Built 12 production screens used daily by the ops team. Integrated 17+ APIs across campaign, publisher, and advertiser workflows. Led PHP → Next.js migration for the NextGame Platform.",
-    type: "work"
+    role: "AI Developer",
+    company: "Thesisly",
+    period: "Sept. 2025 – Present",
+    location: "Remote",
+    points: [
+      "Debugged, optimized, and scaled backend AI model systems to support 1,000+ active users, reducing inference latency by 40% via model quantization and Docker containerization.",
+      "Collaborated directly with frontend and product teams to integrate third-party services and ship features end-to-end, improving model accuracy by 15% via hyperparameter tuning.",
+      "Engineered robust automated CI/CD testing pipelines in Git achieving 95% code coverage, reducing deployment bugs by 60% and accelerating release cycles.",
+    ],
   },
   {
-    role: "B.Tech in Computer Science",
-    company: "Guru Ghasidas University",
-    period: "Aug 2023 – June 2027",
-    description: "CGPA: 7.9/10. Active problem-solver with competitive programming experience.",
-    type: "education"
+    role: "Software Developer Intern",
+    company: "Adcuesta",
+    period: "Dec. 2025 – Present",
+    location: "Remote",
+    points: [
+      "Built and shipped a production-grade operations dashboard using React, Next.js, and TypeScript, delivering 12 admin screens and integrating 17+ backend REST APIs.",
+      "Worked closely with SQL databases to write efficient queries for a centralized reporting layer with 10 KPI widgets and CSV exports, reducing manual reporting time by 60–80%.",
+      "Demonstrated strong ownership of end-to-end task delivery by consolidating 7 core business processes, cutting configuration setup time by 50–70%.",
+    ],
+  },
+];
+
+const achievements = [
+  {
+    title: "National Winner · Smart India Hackathon 2025",
+    subtitle: "ISRO's Quantum Frontiers Award",
+    description: "Awarded among 15,000+ competitors for architecting a quantum-secure communication defense system.",
+    icon: Trophy,
+    badge: "ISRO Winner",
+  },
+  {
+    title: "NHIDE 2026 Hackathon Finalist",
+    subtitle: "National Finalist (Top 20 Teams)",
+    description: "Recognized nationally for building Mulyankan AI: distributed grading engine with OCR and Celery queues.",
+    icon: Award,
+    badge: "Top 20 Nationally",
   },
 ];
 
 export default function AboutSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section id="about" className="py-20 md:py-32 bg-card/30" ref={ref}>
-      <div className="max-w-6xl mx-auto px-6">
-        <motion.h2
-          className="text-3xl md:text-4xl font-semibold text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
-        >
-          About Me
-        </motion.h2>
-
-        <div className="grid md:grid-cols-3 gap-12 mb-20">
-          {/* Bio Column */}
-          <motion.div
-            className="md:col-span-2 space-y-6"
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <h3 className="text-2xl font-semibold mb-4">The Developer Journey</h3>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              I'm a <strong className="font-semibold text-foreground">Frontend Developer</strong> and third-year CS undergrad who has spent the last year building production dashboards and shipping real features at <strong className="font-semibold text-foreground">Adcuesta</strong>. I love turning complex workflows into clean, fast interfaces — and I'm always looking for the next place to take that further.
-            </p>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              My work at Adcuesta covers two live products: an <strong className="font-semibold text-foreground">operations dashboard</strong> used daily by the ops team, and the <strong className="font-semibold text-foreground">NextGame Platform</strong> — a full-stack gaming platform I helped migrate from PHP to Next.js App Router.
-            </p>
-
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6">
-              {stats.map((stat, index) => (
-                <Card
-                  key={index}
-                  className="p-4 border-primary/10 bg-background/50 backdrop-blur hover:bg-background/80 transition-colors"
-                >
-                  <div className={`mb-2 ${stat.color}`}>
-                    <stat.icon className="h-6 w-6" />
-                  </div>
-                  <div className="text-2xl font-bold">{stat.value}</div>
-                  <div className="text-xs text-muted-foreground font-medium">{stat.label}</div>
-                </Card>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Achievements Column */}
-          <motion.div
-            className="space-y-6"
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <h3 className="text-2xl font-semibold mb-4">Key Achievements</h3>
-            <div className="space-y-4">
-              <Card className="p-4 border-l-4 border-l-yellow-500 bg-background/50">
-                <div className="flex items-start gap-3">
-                  <Trophy className="h-5 w-5 text-yellow-500 mt-1 shrink-0" />
-                  <div>
-                    <div className="font-semibold">ISRO Quantum Frontiers Award</div>
-                    <div className="text-sm text-muted-foreground">Smart India Hackathon 2025 · 15,000+ participants</div>
-                  </div>
-                </div>
-              </Card>
-
-              <Card className="p-4 border-l-4 border-l-cyan-500 bg-background/50">
-                <div className="flex items-start gap-3">
-                  <Award className="h-5 w-5 text-cyan-500 mt-1 shrink-0" />
-                  <div>
-                    <div className="font-semibold">NHIDE 2026 Finalist</div>
-                    <div className="text-sm text-muted-foreground">Top 20 nationally · Mulyankan AI · EdTech impact</div>
-                  </div>
-                </div>
-              </Card>
-
-              <Card className="p-4 border-l-4 border-l-purple-500 bg-background/50">
-                <div className="flex items-start gap-3">
-                  <Award className="h-5 w-5 text-purple-500 mt-1 shrink-0" />
-                  <div>
-                    <div className="font-semibold">Head of Operations</div>
-                    <div className="text-sm text-muted-foreground">GDGC-GGV · Google Developer Group</div>
-                  </div>
-                </div>
-              </Card>
-            </div>
-          </motion.div>
+    <section id="experience" className="py-20 md:py-28 border-b border-border bg-background">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        
+        {/* Section Header */}
+        <div className="mb-12 md:mb-16">
+          <div className="flex items-center gap-2 mb-2 font-mono text-xs uppercase tracking-wider text-muted-foreground">
+            <Briefcase className="h-3.5 w-3.5 text-foreground" />
+            <span>Track Record</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground" data-testid="text-section-about">
+            Experience & Education
+          </h2>
+          <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-2xl">
+            Software engineering at scale, backend model optimization, and competitive hackathon recognition.
+          </p>
         </div>
 
-        {/* Experience Timeline */}
-        <motion.div
-          className="mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        >
-          <h3 className="text-2xl font-semibold text-center mb-10">Experience &amp; Education</h3>
-          <div className="relative border-l-2 border-primary/20 ml-4 md:ml-0 md:pl-0 space-y-10">
-            {experiences.map((exp, index) => (
-              <div
-                key={index}
-                className="relative pl-8 md:pl-0 md:grid md:grid-cols-5 md:gap-8 group"
-              >
-                <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-background border-2 border-primary group-hover:bg-primary transition-colors md:left-auto md:right-1/2 md:mr-[-8px] md:translate-x-1/2 z-10" />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
+          
+          {/* Experience Timeline */}
+          <div className="lg:col-span-7 space-y-6">
+            <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground block mb-2">
+              Professional Roles
+            </span>
 
-                <div className={`md:col-span-2 md:text-right ${index % 2 === 0 ? "md:order-1" : "md:order-3"} mb-2 md:mb-0`}>
-                  <Badge variant="outline" className="text-sm px-3 py-1">
-                    <Calendar className="h-3 w-3 mr-2" />
-                    {exp.period}
-                  </Badge>
+            {experiences.map((item, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.35, delay: idx * 0.1 }}
+                className="p-6 sm:p-7 rounded-xl border border-border bg-card/40 space-y-4"
+                data-testid={`experience-card-${idx}`}
+              >
+                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 border-b border-border pb-3">
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground tracking-tight">
+                      {item.role}
+                    </h3>
+                    <span className="text-sm font-mono text-muted-foreground">
+                      {item.company} · {item.location}
+                    </span>
+                  </div>
+                  <span className="text-xs font-mono text-muted-foreground sm:text-right shrink-0">
+                    {item.period}
+                  </span>
                 </div>
 
-                <div className="hidden md:block md:col-span-1 md:order-2" />
-
-                <Card className={`md:col-span-2 p-6 md:order-${index % 2 === 0 ? "3" : "1"} hover-elevate transition-all`}>
-                  <div className="flex items-center gap-3 mb-2">
-                    {exp.type === "work" ? (
-                      <Briefcase className="h-5 w-5 text-primary" />
-                    ) : (
-                      <GraduationCap className="h-5 w-5 text-primary" />
-                    )}
-                    <h4 className="text-lg font-bold">{exp.role}</h4>
-                  </div>
-                  <div className="text-primary font-medium mb-2">{exp.company}</div>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{exp.description}</p>
-                </Card>
-              </div>
+                <div className="space-y-2 pt-1">
+                  {item.points.map((point, pIdx) => (
+                    <div key={pIdx} className="flex items-start gap-2.5 text-xs text-muted-foreground leading-relaxed">
+                      <span className="w-1.5 h-1.5 rounded-full bg-foreground/50 shrink-0 mt-1.5" />
+                      <span>{point}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
             ))}
-          </div>
-        </motion.div>
 
-        {/* Technical Skills */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <h3 className="text-2xl font-semibold text-center mb-8 text-primary">
-            Technical Arsenal
-          </h3>
-          <Card className="p-6 bg-gradient-to-r from-primary/5 to-accent/5 border-2 border-primary/20 shadow-xl overflow-hidden">
-            <ScrollingSkills />
-          </Card>
-        </motion.div>
+            {/* Education Card */}
+            <div className="p-6 sm:p-7 rounded-xl border border-border bg-card/40 space-y-2">
+              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                <div>
+                  <h3 className="text-base font-semibold text-foreground tracking-tight">
+                    B.Tech in Computer Science and Engineering
+                  </h3>
+                  <span className="text-xs font-mono text-muted-foreground">
+                    Guru Ghasidas University · Bilaspur, Chhattisgarh
+                  </span>
+                </div>
+                <span className="text-xs font-mono text-muted-foreground sm:text-right shrink-0">
+                  Aug. 2023 – June 2027
+                </span>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed pt-2">
+                Core coursework: Distributed Systems, Operating Systems, Computer Networks, Database Architecture, and Algorithms.
+              </p>
+            </div>
+          </div>
+
+          {/* Honors & Hackathons */}
+          <div className="lg:col-span-5 space-y-4">
+            <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground block mb-2">
+              Honors & National Awards
+            </span>
+
+            {achievements.map((ach, idx) => {
+              const Icon = ach.icon;
+              return (
+                <div
+                  key={idx}
+                  className="p-5 sm:p-6 rounded-xl border border-border bg-card/40 space-y-2.5"
+                  data-testid={`achievement-card-${idx}`}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 border border-amber-500/30">
+                      {ach.badge}
+                    </span>
+                    <Icon className="h-4 w-4 text-foreground" />
+                  </div>
+                  <h3 className="text-sm font-semibold text-foreground tracking-tight">
+                    {ach.title}
+                  </h3>
+                  <span className="text-xs font-mono text-muted-foreground block">
+                    {ach.subtitle}
+                  </span>
+                  <p className="text-xs text-muted-foreground leading-relaxed pt-1">
+                    {ach.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
+
       </div>
     </section>
   );

@@ -1,98 +1,85 @@
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Flame, Code, FileText } from "lucide-react";
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { Code, Cpu, Database, Wrench, Terminal } from "lucide-react";
 
-const skills = [
+interface SkillCategory {
+  title: string;
+  icon: typeof Code;
+  skills: string[];
+}
+
+const skillCategories: SkillCategory[] = [
   {
-    name: "Applied AI Development",
-    technologies: ["LLMs", "NLP", "AI Automation", "Flask AI Apps", "Prompt Engineering"],
-    icon: Flame,
-  },
-  {
-    name: "Cloud-Native DevOps & MLOps",
-    technologies: ["Docker", "Kubernetes", "Microservices", "Automation", "Orchestration"],
+    title: "Languages",
     icon: Code,
+    skills: ["Python", "SQL", "C/C++", "JavaScript", "HTML/CSS"],
   },
   {
-    name: "Full-stack Development",
-    technologies: ["HTML", "CSS", "JavaScript", "React", "Python", "Flask", "Node.js"],
-    icon: Code,
+    title: "AI/ML & Frameworks",
+    icon: Cpu,
+    skills: ["PyTorch", "FastAPI", "Django", "Flask", "Next.js", "React", "Node.js", "Express.js"],
   },
   {
-    name: "Research Report Writing",
-    technologies: ["APA Format", "IEEE Format", "Harvard Format", "Academic Writing"],
-    icon: FileText,
+    title: "Databases & Caching",
+    icon: Database,
+    skills: ["PostgreSQL", "MySQL", "Redis", "Supabase", "MongoDB"],
+  },
+  {
+    title: "Infrastructure & Tools",
+    icon: Wrench,
+    skills: ["AWS", "Docker", "Git", "GitHub Actions", "CI/CD Pipelines", "REST APIs", "Postman"],
   },
 ];
 
 export default function SkillsSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section id="skills" className="py-20 md:py-32 bg-card/30" ref={ref}>
-      <div className="max-w-6xl mx-auto px-6">
-        <motion.h2
-          className="text-3xl md:text-4xl font-semibold text-center mb-16"
-          data-testid="text-section-skills"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
-        >
-          Skills & Expertise
-        </motion.h2>
+    <section id="skills" className="py-20 md:py-28 border-b border-border bg-background">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        
+        {/* Section Header */}
+        <div className="mb-12 md:mb-16">
+          <div className="flex items-center gap-2 mb-2 font-mono text-xs uppercase tracking-wider text-muted-foreground">
+            <Terminal className="h-3.5 w-3.5 text-foreground" />
+            <span>Technical Capabilities</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground" data-testid="text-section-skills">
+            Skills & Infrastructure Stack
+          </h2>
+          <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-2xl">
+            Core systems programming, machine learning toolchains, and distributed backends.
+          </p>
+        </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {skills.map((skill, index) => {
-            const Icon = skill.icon;
+        {/* Categories Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {skillCategories.map((cat, idx) => {
+            const Icon = cat.icon;
             return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+              <div
+                key={idx}
+                className="p-6 sm:p-7 rounded-xl border border-border bg-card/40 space-y-4"
+                data-testid={`card-skill-${idx}`}
               >
-                <Card
-                  className="p-6 hover-elevate transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
-                  data-testid={`card-skill-${index}`}
-                >
-                  <div className="flex items-start gap-4 mb-4">
-                    <motion.div
-                      className="p-3 rounded-md bg-primary/10"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      transition={{ type: "spring", stiffness: 300 }}
+                <div className="flex items-center gap-2.5 border-b border-border pb-3">
+                  <Icon className="h-4 w-4 text-foreground" />
+                  <h3 className="text-base font-semibold text-foreground tracking-tight">
+                    {cat.title}
+                  </h3>
+                </div>
+
+                <div className="flex flex-wrap gap-2 pt-1 font-mono text-xs">
+                  {cat.skills.map((skill, sIdx) => (
+                    <span
+                      key={sIdx}
+                      className="px-3 py-1 rounded-md bg-muted text-foreground border border-border"
                     >
-                      <Icon className="h-6 w-6 text-primary" />
-                    </motion.div>
-                    <div className="flex-1">
-                      <h3
-                        className="text-xl font-semibold mb-3"
-                        data-testid={`text-skill-name-${index}`}
-                      >
-                        {skill.name}
-                      </h3>
-                      <div className="flex flex-wrap gap-2">
-                        {skill.technologies.map((tech, techIndex) => (
-                          <Badge
-                            key={techIndex}
-                            variant="secondary"
-                            className="text-xs"
-                            data-testid={`badge-tech-${index}-${techIndex}`}
-                          >
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              </motion.div>
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
             );
           })}
         </div>
+
       </div>
     </section>
   );
