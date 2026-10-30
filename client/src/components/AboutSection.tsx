@@ -53,7 +53,7 @@ const achievements = [
 
 export default function AboutSection() {
   return (
-    <section id="experience" className="py-20 md:py-28 border-b border-border bg-background">
+    <section id="experience" className="py-20 md:py-28 border-b border-border bg-transparent">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}

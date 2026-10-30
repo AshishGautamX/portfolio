@@ -1,24 +1,41 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import ProjectsSection from "@/components/ProjectsSection";
 import ActivityHeatmapSection from "@/components/ActivityHeatmapSection";
+import ProjectsSection from "@/components/ProjectsSection";
 import AboutSection from "@/components/AboutSection";
 import SkillsSection from "@/components/SkillsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import BackgroundFloatingObjects from "@/components/BackgroundFloatingObjects";
 
 export default function Portfolio() {
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-foreground selection:text-background w-full max-w-full overflow-x-hidden">
+    <div className="relative min-h-screen bg-background text-foreground selection:bg-foreground selection:text-background w-full max-w-full overflow-x-hidden">
+      {/* Dynamic Background Floating Geometry & Ambient Particles */}
+      <BackgroundFloatingObjects />
+
       <Navbar />
-      <main className="w-full max-w-full overflow-x-hidden">
+
+      <main className="relative z-10 w-full max-w-full overflow-x-hidden">
+        {/* 1. Hero Overview */}
         <HeroSection />
-        <ProjectsSection />
+
+        {/* 2. Moved Upward: Live GitHub Activity Heatmap & Shipping Cadence */}
         <ActivityHeatmapSection />
+
+        {/* 3. Core Systems Projects */}
+        <ProjectsSection />
+
+        {/* 4. Experience & National Honors */}
         <AboutSection />
+
+        {/* 5. Technical Capabilities */}
         <SkillsSection />
+
+        {/* 6. Direct Contact */}
         <ContactSection />
       </main>
+
       <Footer />
     </div>
   );

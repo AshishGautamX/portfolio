@@ -1,5 +1,6 @@
 import { ExternalLink, Github, Terminal, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 
 interface Project {
   title: string;
@@ -98,7 +99,7 @@ const projects: Project[] = [
 
 export default function ProjectsSection() {
   return (
-    <section id="projects" className="py-20 md:py-28 border-b border-border bg-background">
+    <section id="projects" className="py-20 md:py-28 border-b border-border bg-transparent">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
@@ -115,16 +116,12 @@ export default function ProjectsSection() {
           </p>
         </div>
 
-        {/* Project Cards */}
+        {/* Project Cards with Spotlight Cursor Tracking */}
         <div className="space-y-8 md:space-y-12">
           {projects.map((project, index) => (
-            <motion.div
+            <SpotlightCard
               key={index}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.35 }}
-              className="p-6 sm:p-8 rounded-xl border border-border bg-card/40 hover:border-foreground/30 transition-all space-y-6"
+              className="p-6 sm:p-8 rounded-xl border border-border bg-card/50 hover:border-foreground/40 transition-colors space-y-6 shadow-xs hover:shadow-md relative overflow-hidden"
               data-testid={`card-project-${index}`}
             >
               {/* Header */}
@@ -218,7 +215,7 @@ export default function ProjectsSection() {
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </SpotlightCard>
           ))}
         </div>
 

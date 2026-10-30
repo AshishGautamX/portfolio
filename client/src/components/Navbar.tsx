@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Menu, X, FileText } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
+  { name: "Activity", href: "#activity" },
   { name: "Projects", href: "#projects" },
   { name: "Experience", href: "#experience" },
-  { name: "Activity", href: "#activity" },
   { name: "Skills", href: "#skills" },
   { name: "Contact", href: "#contact" },
 ];
@@ -42,10 +41,6 @@ export default function Navbar() {
       element.scrollIntoView({ behavior: "smooth" });
       setIsMobileMenuOpen(false);
     }
-  };
-
-  const handleResumeClick = () => {
-    window.open("/resume.pdf", "_blank");
   };
 
   return (
@@ -89,18 +84,8 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Actions: Resume & Theme Toggle */}
+          {/* Actions: Theme Toggle */}
           <div className="hidden md:flex items-center gap-3">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleResumeClick}
-              className="text-xs h-8 px-3 border-border hover:bg-muted text-foreground gap-1.5 font-mono"
-              data-testid="button-nav-resume"
-            >
-              <FileText className="h-3.5 w-3.5" />
-              <span>Resume</span>
-            </Button>
             <ThemeToggle />
           </div>
 
@@ -134,17 +119,6 @@ export default function Navbar() {
                 {item.name}
               </button>
             ))}
-            <div className="pt-3 border-t border-border px-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleResumeClick}
-                className="w-full text-sm font-mono justify-center gap-2 h-11"
-              >
-                <FileText className="h-4 w-4" />
-                <span>Resume (PDF)</span>
-              </Button>
-            </div>
           </div>
         )}
 

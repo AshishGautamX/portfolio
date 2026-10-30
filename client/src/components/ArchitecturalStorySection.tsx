@@ -78,14 +78,14 @@ const chapters: Chapter[] = [
     label: "SHIPPING CADENCE",
     title: "1,024 contributions: distributed queues, schedulers & open source.",
     narrative:
-      "Engineering excellence is an active daily practice. Across 59 public and private repositories, I built intelligent Kubernetes schedulers (K8s-LLM-Scheduler with Llama-3.3-70B), full-stack AI grading backends with Celery and Redis (Mulyankan AI, NHIDE National Finalist), and fine-tuned Phi-3 models with LoRA adapters.",
-    metricValue: "1,024",
+      "Engineering excellence is an active daily practice. Across public and private engineering repositories, I built intelligent Kubernetes schedulers (K8s-LLM-Scheduler with Llama-3.3-70B), full-stack AI grading backends with Celery and Redis (Mulyankan AI, NHIDE National Finalist), and fine-tuned Phi-3 models with LoRA adapters.",
+    metricValue: "1,000+",
     metricLabel: "ANNUAL CONTRIBUTIONS",
     stack: ["Kubernetes", "Redis", "Celery", "FastAPI", "PostgreSQL"],
     proofPoints: [
       "NHIDE 2026 National Finalist (Top 20 teams nationally for Mulyankan AI)",
       "K8s-LLM-Scheduler: Autonomous pod scheduling with fallback circuit breakers",
-      "Consistently maintained 59 public and private code repositories"
+      "Consistently maintained public and private production code repositories"
     ],
     status: "Active Shipping"
   }
