@@ -7,10 +7,18 @@ import SkillsSection from "@/components/SkillsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import BackgroundFloatingObjects from "@/components/BackgroundFloatingObjects";
+import ScrollProgressBar from "@/components/ui/ScrollProgressBar";
+import TravelingAvatar from "@/components/TravelingAvatar";
 
 export default function Portfolio() {
   return (
     <div className="relative min-h-screen bg-background text-foreground selection:bg-foreground selection:text-background w-full max-w-full overflow-x-hidden">
+      {/* Mobile & Desktop Scroll Progress Indicator */}
+      <ScrollProgressBar />
+
+      {/* Traveling Avatar Flight Animation (Hero to Navbar Curve) */}
+      <TravelingAvatar />
+
       {/* Dynamic Background Floating Geometry & Ambient Particles */}
       <BackgroundFloatingObjects />
 

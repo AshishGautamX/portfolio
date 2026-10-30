@@ -63,10 +63,10 @@ export default function BackgroundFloatingObjects() {
       <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-violet-600/5 dark:bg-violet-500/5 blur-3xl" />
       <div className="absolute top-1/2 -right-40 w-[28rem] h-[28rem] rounded-full bg-amber-500/5 dark:bg-amber-400/5 blur-3xl" />
 
-      {/* ─── Object 1: Hero Area Wireframe Polyhedron (Top-Right) ─── */}
+      {/* ─── Object 1: Hero Area Wireframe Polyhedron (Top-Right) - Desktop Only ─── */}
       <motion.div
         style={{ x: obj1X, y: obj1Y, rotate: obj1Rotate }}
-        className="absolute top-[8%] right-[8%] sm:right-[14%] w-24 h-24 sm:w-32 sm:h-32 opacity-25 dark:opacity-35"
+        className="hidden md:block absolute top-[8%] right-[8%] lg:right-[14%] w-24 h-24 lg:w-32 lg:h-32 opacity-25 dark:opacity-35 pointer-events-none"
       >
         <motion.div
           animate={{
@@ -90,10 +90,10 @@ export default function BackgroundFloatingObjects() {
         </motion.div>
       </motion.div>
 
-      {/* ─── Object 2: Activity & Telemetry Orbital Gyro (Upper Mid-Left) ─── */}
+      {/* ─── Object 2: Activity & Telemetry Orbital Gyro (Upper Mid-Left) - Desktop Only ─── */}
       <motion.div
         style={{ x: obj2X, y: obj2Y, rotate: obj2Rotate }}
-        className="absolute top-[28%] left-[4%] sm:left-[8%] w-20 h-20 sm:w-28 sm:h-28 opacity-20 dark:opacity-30"
+        className="hidden md:block absolute top-[28%] left-[4%] lg:left-[8%] w-20 h-20 lg:w-28 lg:h-28 opacity-20 dark:opacity-30 pointer-events-none"
       >
         <motion.div
           animate={{
@@ -116,10 +116,10 @@ export default function BackgroundFloatingObjects() {
         </motion.div>
       </motion.div>
 
-      {/* ─── Object 3: Projects Area Distributed Graph Matrix (Mid-Right) ─── */}
+      {/* ─── Object 3: Projects Area Distributed Graph Matrix (Mid-Right) - Desktop Only ─── */}
       <motion.div
         style={{ x: obj3X, y: obj3Y }}
-        className="absolute top-[52%] right-[5%] sm:right-[10%] w-24 h-24 sm:w-32 sm:h-32 opacity-20 dark:opacity-30"
+        className="hidden md:block absolute top-[52%] right-[5%] lg:right-[10%] w-24 h-24 lg:w-32 lg:h-32 opacity-20 dark:opacity-30 pointer-events-none"
       >
         <motion.div
           animate={{
@@ -143,10 +143,10 @@ export default function BackgroundFloatingObjects() {
         </motion.div>
       </motion.div>
 
-      {/* ─── Object 4: Skills & Experience Computing Lattice (Lower-Left) ─── */}
+      {/* ─── Object 4: Skills & Experience Computing Lattice (Lower-Left) - Desktop Only ─── */}
       <motion.div
         style={{ x: obj4X, y: obj4Y }}
-        className="absolute top-[72%] left-[6%] sm:left-[11%] w-20 h-20 sm:w-28 sm:h-28 opacity-20 dark:opacity-30"
+        className="hidden md:block absolute top-[72%] left-[6%] lg:left-[11%] w-20 h-20 lg:w-28 lg:h-28 opacity-20 dark:opacity-30 pointer-events-none"
       >
         <motion.div
           animate={{

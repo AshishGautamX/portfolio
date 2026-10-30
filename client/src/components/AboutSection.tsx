@@ -55,7 +55,7 @@ export default function AboutSection() {
   return (
     <section id="experience" className="py-20 md:py-28 border-b border-border bg-transparent">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        
+
         {/* Section Header */}
         <div className="mb-12 md:mb-16">
           <div className="flex items-center gap-2 mb-2 font-mono text-xs uppercase tracking-wider text-muted-foreground">
@@ -71,7 +71,7 @@ export default function AboutSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
-          
+
           {/* Experience Timeline */}
           <div className="lg:col-span-7 space-y-6">
             <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground block mb-2">
@@ -121,7 +121,7 @@ export default function AboutSection() {
                     B.Tech in Computer Science and Engineering
                   </h3>
                   <span className="text-xs font-mono text-muted-foreground">
-                    Guru Ghasidas University · Bilaspur, Chhattisgarh
+                    Guru Ghasidas Central University
                   </span>
                 </div>
                 <span className="text-xs font-mono text-muted-foreground sm:text-right shrink-0">

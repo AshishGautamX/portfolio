@@ -218,9 +218,12 @@ export default function ActivityHeatmapSection() {
             </div>
           </div>
 
-          {/* Mobile Swipe Hint */}
-          <div className="md:hidden text-[11px] font-mono text-muted-foreground mb-2 flex items-center justify-between">
-            <span>← Swipe horizontally to explore 2026 commits →</span>
+          {/* Mobile Swipe Hint with Animated Cue */}
+          <div className="md:hidden text-[10px] sm:text-[11px] font-mono text-muted-foreground mb-3 flex items-center gap-2 px-2.5 py-1 rounded-md bg-muted/40 border border-border/60 w-fit">
+            <motion.span animate={{ x: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}>
+              ↔
+            </motion.span>
+            <span>Swipe horizontally to inspect full 2026 activity</span>
           </div>
 
           {/* Horizontal Scroll Wrapper */}
