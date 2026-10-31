@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
-import { 
-  GraduationCap, 
-  Briefcase, 
-  Trophy, 
-  Award, 
-  Sparkles, 
+import {
+  GraduationCap,
+  Briefcase,
+  Trophy,
+  Award,
+  Sparkles,
   Terminal,
-  CheckCircle2 
+  CheckCircle2
 } from "lucide-react";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 
@@ -102,16 +102,17 @@ export default function AboutSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [pathD, setPathD] = useState<string>("");
 
-  // Scroll-linked smooth path drawing
+  // Scroll-linked smooth path drawing - synchronized to eliminate mobile scroll lag
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end center"],
+    offset: ["start 70%", "end 75%"],
   });
 
   const pathLength = useSpring(scrollYProgress, {
-    stiffness: 90,
-    damping: 24,
-    restDelta: 0.001,
+    stiffness: 400,
+    damping: 35,
+    mass: 0.15,
+    restDelta: 0.0001,
   });
 
   // Calculate dynamic serpentine/zig-zag SVG path through all node centers
@@ -168,7 +169,7 @@ export default function AboutSection() {
     const t3 = setTimeout(calculateZigzagPath, 600);
 
     if (document.fonts) {
-      document.fonts.ready.then(calculateZigzagPath).catch(() => {});
+      document.fonts.ready.then(calculateZigzagPath).catch(() => { });
     }
 
     return () => {
@@ -254,14 +255,14 @@ export default function AboutSection() {
               const badgeColor = isAmber
                 ? "bg-amber-500/10 text-amber-500 border-amber-500/30"
                 : isEmerald
-                ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/30"
-                : "bg-muted text-foreground border-border";
+                  ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/30"
+                  : "bg-muted text-foreground border-border";
 
               const dotColor = isAmber
                 ? "bg-amber-500 ring-4 ring-amber-500/20"
                 : isEmerald
-                ? "bg-emerald-500 ring-4 ring-emerald-500/20"
-                : "bg-foreground ring-4 ring-foreground/20";
+                  ? "bg-emerald-500 ring-4 ring-emerald-500/20"
+                  : "bg-foreground ring-4 ring-foreground/20";
 
               return (
                 <div
@@ -272,9 +273,8 @@ export default function AboutSection() {
                   {/* On Desktop & Mobile: Alternates smoothly across the screen */}
                   <div
                     id={`zigzag-node-${idx}`}
-                    className={`absolute z-30 flex items-center justify-center top-6 -translate-y-1/2 -translate-x-1/2 ${
-                      isEven ? "left-[82%] md:left-[72%]" : "left-[18%] md:left-[28%]"
-                    }`}
+                    className={`absolute z-30 flex items-center justify-center top-6 -translate-y-1/2 -translate-x-1/2 ${isEven ? "left-[82%] md:left-[72%]" : "left-[18%] md:left-[28%]"
+                      }`}
                   >
                     <motion.div
                       initial={{ scale: 0.8, opacity: 0 }}
@@ -291,20 +291,18 @@ export default function AboutSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.4, delay: 0.1 }}
-                    className={`w-full ${
-                      isEven
+                    className={`w-full ${isEven
                         ? "w-[90%] sm:w-[86%] md:w-[46%] ml-auto"
                         : "w-[90%] sm:w-[86%] md:w-[46%] mr-auto"
-                    }`}
+                      }`}
                   >
                     <SpotlightCard
-                      className={`p-5 sm:p-6 rounded-xl border bg-card/60 backdrop-blur-xs transition-colors shadow-xs relative overflow-hidden group ${
-                        isAmber
+                      className={`p-5 sm:p-6 rounded-xl border bg-card/60 backdrop-blur-xs transition-colors shadow-xs relative overflow-hidden group ${isAmber
                           ? "border-amber-500/30 bg-amber-500/5 dark:bg-amber-500/10"
                           : isEmerald
-                          ? "border-emerald-500/30 bg-emerald-500/5 dark:bg-emerald-500/10"
-                          : "border-border"
-                      }`}
+                            ? "border-emerald-500/30 bg-emerald-500/5 dark:bg-emerald-500/10"
+                            : "border-border"
+                        }`}
                     >
                       {/* Top Bar: Epoch & Badges */}
                       <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
