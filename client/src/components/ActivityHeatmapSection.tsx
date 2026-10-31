@@ -9,7 +9,8 @@ interface PinnedRepo {
   language: string;
   stars: number;
   forks: number;
-  url: string;
+  url?: string;
+  isPrivate?: boolean;
 }
 
 interface ContributionDay {
@@ -26,7 +27,7 @@ const pinnedRepos: PinnedRepo[] = [
     language: "Python",
     stars: 1,
     forks: 0,
-    url: "https://github.com/AshishGautamX/PacketSentinel",
+    isPrivate: true,
   },
   {
     name: "K8s-LLM-Scheduler",
@@ -53,7 +54,7 @@ const pinnedRepos: PinnedRepo[] = [
     language: "Python",
     stars: 2,
     forks: 1,
-    url: "https://github.com/AshishGautamX",
+    isPrivate: true,
   },
 ];
 
@@ -306,49 +307,68 @@ export default function ActivityHeatmapSection() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {pinnedRepos.map((repo, idx) => (
-              <motion.a
-                key={idx}
-                href={repo.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -3, scale: 1.01 }}
-                transition={{ duration: 0.15 }}
-                className="p-5 rounded-lg border border-border bg-card/40 hover:border-foreground/40 transition-all group flex flex-col justify-between shadow-xs"
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-sm font-semibold font-mono text-foreground group-hover:text-primary transition-colors flex items-center gap-2">
-                      <Code className="h-4 w-4 text-muted-foreground" />
-                      {repo.name}
-                    </span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground border border-border">
-                      Verified
-                    </span>
+            {pinnedRepos.map((repo, idx) => {
+              const cardContent = (
+                <>
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-2">
+                      <span className="text-sm font-semibold font-mono text-foreground group-hover:text-primary transition-colors flex items-center gap-2">
+                        <Code className="h-4 w-4 text-muted-foreground" />
+                        {repo.name}
+                      </span>
+                      <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${repo.isPrivate ? "bg-amber-500/10 text-amber-500 border-amber-500/30" : "bg-muted text-muted-foreground border-border"}`}>
+                        {repo.isPrivate ? "Private Repo" : "Verified"}
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+                      {repo.description}
+                    </p>
                   </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
-                    {repo.description}
-                  </p>
-                </div>
 
-                <div className="pt-4 border-t border-border mt-4 flex items-center justify-between text-xs font-mono text-muted-foreground">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-                    <span>{repo.language}</span>
+                  <div className="pt-4 border-t border-border mt-4 flex items-center justify-between text-xs font-mono text-muted-foreground">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+                      <span>{repo.language}</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="flex items-center gap-1">
+                        <Star className="h-3.5 w-3.5" />
+                        {repo.stars}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <GitBranch className="h-3.5 w-3.5" />
+                        {repo.forks}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <span className="flex items-center gap-1">
-                      <Star className="h-3.5 w-3.5" />
-                      {repo.stars}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <GitBranch className="h-3.5 w-3.5" />
-                      {repo.forks}
-                    </span>
-                  </div>
+                </>
+              );
+
+              if (repo.url) {
+                return (
+                  <motion.a
+                    key={idx}
+                    href={repo.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ y: -3, scale: 1.01 }}
+                    transition={{ duration: 0.15 }}
+                    className="p-5 rounded-lg border border-border bg-card/40 hover:border-foreground/40 transition-all group flex flex-col justify-between shadow-xs cursor-pointer"
+                  >
+                    {cardContent}
+                  </motion.a>
+                );
+              }
+
+              return (
+                <div
+                  key={idx}
+                  className="p-5 rounded-lg border border-border bg-card/30 flex flex-col justify-between shadow-xs select-none"
+                >
+                  {cardContent}
                 </div>
-              </motion.a>
-            ))}
+              );
+            })}
           </div>
         </div>
 

@@ -185,7 +185,7 @@ export default function BackgroundFloatingObjects() {
           <motion.div
             key={i}
             style={{ top: p.top, left: p.left, x: px, y: py }}
-            className={`absolute rounded-full bg-foreground/25 dark:bg-foreground/35 ${p.size}`}
+            className={`hidden md:block absolute rounded-full bg-foreground/25 dark:bg-foreground/35 ${p.size}`}
             animate={{
               y: [0, -18, 0],
               opacity: [0.2, 0.6, 0.2],

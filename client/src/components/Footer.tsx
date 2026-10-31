@@ -12,7 +12,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-border py-10 bg-background/80 backdrop-blur-md relative z-10">
+    <footer id="contact" className="border-t border-border py-10 bg-background/80 backdrop-blur-md relative z-10">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 font-mono text-xs">
           

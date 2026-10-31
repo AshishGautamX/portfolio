@@ -33,7 +33,6 @@ const projects: Project[] = [
       { label: "Throughput", value: "16,190 w/s" },
     ],
     techStack: ["PyTorch", "Transformers", "Captum", "Streamlit", "NVIDIA L4"],
-    codeUrl: "https://github.com/AshishGautamX/PacketSentinel",
   },
   {
     title: "Mulyankan AI (SwayamGrading)",
@@ -53,8 +52,6 @@ const projects: Project[] = [
       { label: "Curricula", value: "9+ Tiers" },
     ],
     techStack: ["Python", "FastAPI", "PostgreSQL", "Redis", "Celery", "Prisma"],
-    codeUrl: "https://github.com/AshishGautamX",
-    liveUrl: "https://mulyankanai.netlify.app/",
   },
   {
     title: "K8s-LLM-Scheduler",

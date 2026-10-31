@@ -1,9 +1,7 @@
-import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail, ArrowRight, Award, Trophy } from "lucide-react";
 import { motion } from "framer-motion";
 import { Magnetic } from "@/components/ui/Magnetic";
-import { SpotlightCard } from "@/components/ui/SpotlightCard";
 
 const socialLinks = [
   { Icon: Github, href: "https://github.com/AshishGautamX", label: "GitHub", testId: "link-hero-github" },
@@ -11,82 +9,7 @@ const socialLinks = [
   { Icon: Mail, href: "mailto:gautamashishbxr@gmail.com", label: "Email", testId: "link-hero-email" },
 ];
 
-// Smooth Animated Number Counter
-function CountingNumber({ value }: { value: string }) {
-  const [display, setDisplay] = useState("0");
-
-  useEffect(() => {
-    const match = value.match(/([0-9.,]+)/);
-    if (!match) {
-      setDisplay(value);
-      return;
-    }
-    const numStr = match[1].replace(/,/g, "");
-    const target = parseFloat(numStr);
-    const prefix = value.startsWith("-") ? "-" : "";
-    const suffix = value.replace(/[-0-9.,]/g, "");
-
-    const duration = 1200;
-    const startTime = performance.now();
-
-    const animate = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
-      const ease = 1 - Math.pow(1 - progress, 3);
-      const current = target * ease;
-
-      const formatted = Number.isInteger(target)
-        ? Math.round(current).toLocaleString()
-        : current.toFixed(2);
-
-      setDisplay(`${prefix}${formatted}${suffix}`);
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-
-    const handle = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(handle);
-  }, [value]);
-
-  return <span>{display}</span>;
-}
-
 export default function HeroSection() {
-  const [publicRepos, setPublicRepos] = useState<number | null>(null);
-  const [contributions2026, setContributions2026] = useState<number>(983);
-
-  useEffect(() => {
-    // Dynamic fetch of public repositories count (never hardcoded)
-    fetch("https://api.github.com/users/AshishGautamX")
-      .then((r) => r.json())
-      .then((data) => {
-        if (typeof data.public_repos === "number") {
-          setPublicRepos(data.public_repos);
-        }
-      })
-      .catch(() => { });
-
-    // Dynamic fetch of 2026 GitHub contributions
-    fetch("https://github-contributions-api.jogruber.de/v4/AshishGautamX?y=2026")
-      .then((r) => r.json())
-      .then((data) => {
-        if (data?.total?.["2026"]) {
-          setContributions2026(data.total["2026"]);
-        }
-      })
-      .catch(() => { });
-  }, []);
-
-  const metrics = [
-    { label: "2026 Contributions", value: `${contributions2026}`, highlight: true },
-    { label: "Intrusion Macro-F1", value: "92.41%" },
-    { label: "Inference Latency Cut", value: "-40%" },
-    { label: "Public & Org Repos", value: publicRepos ? `${publicRepos}+` : "Active" },
-  ];
-
   const scrollToContact = () => {
     const el = document.querySelector("#contact");
     if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -98,11 +21,11 @@ export default function HeroSection() {
   };
 
   return (
-    <section id="home" className="pt-28 pb-16 md:pt-36 md:pb-24 border-b border-border bg-transparent relative overflow-hidden">
+    <section id="home" className="pt-28 pb-16 md:pt-32 md:pb-20 border-b border-border bg-transparent relative overflow-hidden">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
 
         {/* Main Hero Grid */}
-        <div className="flex flex-col-reverse md:flex-row items-start md:items-center justify-between gap-8 md:gap-12">
+        <div className="flex flex-col-reverse md:flex-row items-start md:items-start justify-between gap-8 md:gap-12 lg:gap-16">
 
           {/* Left Text Column */}
           <motion.div
@@ -116,19 +39,21 @@ export default function HeroSection() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card text-[11px] sm:text-xs font-mono text-muted-foreground shadow-xs hover:border-foreground/30 transition-colors max-w-full text-balance"
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/25 bg-emerald-500/10 text-[11px] sm:text-xs font-mono text-emerald-600 dark:text-emerald-400 shadow-xs w-fit"
             >
               <span className="relative flex h-2 w-2 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span className="truncate sm:overflow-visible">AI & Systems Engineer · Backend Infrastructure</span>
+              <span className="font-mono tracking-tight font-medium">AI &amp; Systems Engineer</span>
+              <span className="hidden sm:inline text-emerald-500/40">·</span>
+              <span className="hidden sm:inline text-muted-foreground">Backend Infrastructure</span>
             </motion.div>
 
             {/* Name and Core Statement */}
             <div className="space-y-3">
               <motion.h1
-                className="text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight text-foreground text-balance"
+                className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground"
                 data-testid="text-hero-name"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -137,37 +62,85 @@ export default function HeroSection() {
                 Ashish Gautam
               </motion.h1>
               <motion.p
-                className="text-sm sm:text-base md:text-xl text-muted-foreground leading-relaxed font-normal text-balance"
+                className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed font-normal"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.15 }}
               >
-                Building low-latency inference pipelines, model quantization architectures, and distributed backend systems.
+                Architecting <span className="text-foreground font-semibold">low-latency inference pipelines</span>, <span className="text-foreground font-semibold">model quantization</span> architectures, and <span className="text-foreground font-semibold">distributed backend systems</span>.
               </motion.p>
             </div>
 
-            {/* Current Work & Accolades */}
+            {/* Key Credentials & National Honors - High Impact Structured Cards */}
             <motion.div
-              className="space-y-2 pt-1 font-mono text-xs text-foreground/90"
+              className="space-y-2.5 pt-1 w-full"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.2 }}
             >
-              <div className="flex items-start gap-2.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-foreground shrink-0 mt-1.5" />
-                <span>
-                  <strong>AI Developer</strong> @ Thesisly & <strong>Software Developer Intern</strong> @ Adcuesta
-                </span>
+              {/* 1. National Winner ISRO SIH 2025 Highlight Card */}
+              <div className="p-3 sm:p-3.5 rounded-xl border border-amber-500/30 bg-amber-500/5 dark:bg-amber-500/10 flex items-start gap-3 transition-colors shadow-xs">
+                <div className="w-8 h-8 rounded-lg bg-amber-500/15 border border-amber-500/30 text-amber-500 flex items-center justify-center shrink-0 mt-0.5">
+                  <Trophy className="h-4 w-4" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-2 flex-wrap">
+                    <span className="font-semibold text-xs sm:text-sm text-foreground">
+                      National Winner <span className="text-amber-500 font-bold">· SIH 2025</span>
+                    </span>
+                    <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-500 border border-amber-500/30">
+                      ISRO Award
+                    </span>
+                  </div>
+                  <p className="text-[11px] sm:text-xs text-muted-foreground mt-0.5 leading-relaxed">
+                    Awarded ISRO's Quantum Frontiers Award among 15,000+ national teams.
+                  </p>
+                </div>
               </div>
-              <div className="flex items-start gap-2.5 text-amber-500 dark:text-amber-400">
-                <Trophy className="h-3.5 w-3.5 shrink-0 mt-0.5" />
-                <span>
-                  <strong>National Winner</strong>, Smart India Hackathon 2025 · <strong>ISRO's Quantum Frontiers Award</strong>
-                </span>
+
+              {/* 2. Active Engineering Roles Card */}
+              <div className="p-3 sm:p-3.5 rounded-xl border border-border/80 bg-card/60 backdrop-blur-xs flex items-start gap-3 shadow-xs">
+                <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="relative flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                  </div>
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-2 flex-wrap">
+                    <div className="font-semibold text-xs sm:text-sm text-foreground flex items-center gap-1.5 flex-wrap">
+                      <span>AI Developer @ Thesisly</span>
+                      <span className="text-muted-foreground/40 font-normal">·</span>
+                      <span>SDE Intern @ Adcuesta</span>
+                    </div>
+                    <span className="text-[10px] font-mono text-emerald-500 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                      Active
+                    </span>
+                  </div>
+                  <p className="text-[11px] sm:text-xs text-muted-foreground mt-0.5 leading-relaxed">
+                    Model quantization (-40% latency cut), Docker pipelines &amp; operations APIs.
+                  </p>
+                </div>
               </div>
-              <div className="flex items-start gap-2.5 text-muted-foreground">
-                <Award className="h-3.5 w-3.5 shrink-0 mt-0.5" />
-                <span>NHIDE 2026 Hackathon Finalist (Top 20 Nationally for Mulyankan AI)</span>
+
+              {/* 3. NHIDE 2026 National Finalist Card */}
+              <div className="p-3 sm:p-3.5 rounded-xl border border-border/80 bg-card/40 flex items-start gap-3 shadow-xs">
+                <div className="w-8 h-8 rounded-lg bg-muted text-muted-foreground border border-border/60 flex items-center justify-center shrink-0 mt-0.5">
+                  <Award className="h-4 w-4" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-2 flex-wrap">
+                    <span className="font-semibold text-xs sm:text-sm text-foreground">
+                      NHIDE 2026 National Finalist
+                    </span>
+                    <span className="text-[10px] font-mono text-muted-foreground px-2 py-0.5 rounded-full bg-muted border border-border">
+                      Top 20 Teams
+                    </span>
+                  </div>
+                  <p className="text-[11px] sm:text-xs text-muted-foreground mt-0.5 leading-relaxed">
+                    Mulyankan AI: Distributed async grading architecture with Redis &amp; Celery queues.
+                  </p>
+                </div>
               </div>
             </motion.div>
 
@@ -222,39 +195,15 @@ export default function HeroSection() {
 
           </motion.div>
 
-            {/* Right Column: Invisible Layout Anchor for TravelingAvatar */}
-            <div className="shrink-0 self-center md:self-auto mb-2 md:mb-0 pointer-events-none">
+            {/* Right Column: Invisible Layout Anchor for TravelingAvatar (Positioned at upper-right alongside name & statement) */}
+            <div className="shrink-0 self-center md:self-start md:mt-2 lg:mt-3 mb-2 md:mb-0 pointer-events-none">
               <div
                 id="hero-avatar-anchor"
-              className="w-32 h-32 sm:w-44 sm:h-44 md:w-52 md:h-52 rounded-full opacity-0 pointer-events-none select-none"
-              aria-hidden="true"
-            />
+                className="w-32 h-32 sm:w-44 sm:h-44 md:w-56 md:h-56 lg:w-60 lg:h-60 rounded-full opacity-0 pointer-events-none select-none"
+                aria-hidden="true"
+              />
             </div>
 
-          </div>
-
-          {/* Minimal Uncluttered Metrics Strip with Scroll Animation on Mobile */}
-          <div className="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-border grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 font-mono text-xs">
-            {metrics.map((m, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-20px" }}
-                transition={{ duration: 0.35, delay: i * 0.08 }}
-              >
-                <SpotlightCard
-                  className="p-3 sm:p-4 hover:border-foreground/30 transition-colors shadow-xs h-full"
-                >
-                  <span className={`text-xl sm:text-2xl font-bold block ${m.highlight ? "text-amber-500" : "text-foreground"}`}>
-                    <CountingNumber value={m.value} />
-                  </span>
-                  <span className="text-[10px] sm:text-[11px] text-muted-foreground uppercase tracking-wider block mt-1">
-                    {m.label}
-                  </span>
-                </SpotlightCard>
-              </motion.div>
-            ))}
           </div>
 
         </div>

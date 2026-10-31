@@ -8,7 +8,6 @@ const navItems = [
   { name: "Projects", href: "#projects" },
   { name: "Experience", href: "#experience" },
   { name: "Skills", href: "#skills" },
-  { name: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -61,16 +60,11 @@ export default function Navbar() {
             className="flex items-center text-base font-semibold text-foreground hover:opacity-90 transition-opacity tracking-tight group cursor-pointer focus:outline-hidden relative"
             data-testid="link-logo"
           >
-            {/* Landing Anchor Bay for Traveling Avatar */}
+            {/* Landing Anchor Bay for Traveling Avatar - Permanent stable coordinates */}
             <div
               id="nav-avatar-anchor"
-              className="w-8 h-8 rounded-full shrink-0"
-              style={{
-                width: isScrolled ? "32px" : "0px",
-                marginRight: isScrolled ? "10px" : "0px",
-                opacity: isScrolled ? 1 : 0,
-                transition: "width 0.3s cubic-bezier(0.16, 1, 0.3, 1), margin-right 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-              }}
+              className="w-8 h-8 rounded-full shrink-0 mr-2.5 opacity-0 pointer-events-none select-none"
+              aria-hidden="true"
             />
             <span className="font-semibold tracking-tight whitespace-nowrap">
               Ashish Gautam
